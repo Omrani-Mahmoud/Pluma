@@ -20,7 +20,6 @@ import useGetUser from '../../Hooks/useGetUser';
 import jwt from 'jsonwebtoken';
 import logo from '../../Assets/img/pluma logo/Pluma Logo.png';
 import loginBG from '../../Assets/img/loginBG.png';
-
 import CustomSnackbar from '../../Components/SnackBars/CustomSnackBar';
 import axios from 'axios'
 import {uri} from "../../Url_base";
@@ -28,6 +27,39 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { IconButton } from '@material-ui/core';
 import {motion} from 'framer-motion'
 import {ReactComponent as BackIcon} from '../../Assets/Icons/svg/fi-rs-arrow-small-left.svg';
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from 'recoil';
+
+import {userState} from '../../Atoms/UserAtom'
+import {updateUser} from '../../Selectors/UserSelector'
+
+
+import alpha_a from '../../Assets/img/Angle_C4/a2_0003.png'
+import alpha_K from '../../Assets/img/Angle_C4/K1_0003.png'
+import alpha_4 from '../../Assets/img/Angle_C4/4_0003.png'
+ import alpha_i from '../../Assets/img/Angle_C4/i2_0003.png'
+import alpha_r from '../../Assets/img/Angle_C4/r2_0003.png'
+import alpha_1 from '../../Assets/img/Angle_C4/1_0003.png'
+import alpha_j from '../../Assets/img/Angle_C4/j2_0003.png'
+import alpha_z from '../../Assets/img/Angle_C4/Z1_0003.png'
+import alpha_dot from '../../Assets/img/Angle_C4/_Period0003.png'
+import alpha_f from '../../Assets/img/Angle_C4/f2_0003.png'
+import alpha_u from '../../Assets/img/Angle_C4/u2_0003.png'
+
+import alpha_and from '../../Assets/img/Angle_C4/_Ampersand0003.png'
+import alpha_m from '../../Assets/img/Angle_C4/M1_0003.png'
+import alpha_Q from '../../Assets/img/Angle_C4/Q1_0003.png'
+
+
+
+import {aMotion,kMotion,fourMotion,iMotion,oneMotion,rMotion,zMotion,QMotion,andMotion,mMotion} from './AlphaAnimation'
+
+
 
 const initialState = {
   username:'',
@@ -69,10 +101,10 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: `url(${loginBG})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+    // backgroundImage: `url(${loginBG})`,
+    // backgroundRepeat: 'no-repeat',
+    backgroundColor:'rgb(217,221,251)',
+      // theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
@@ -131,6 +163,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn(props) {
 
+  const [_user,_setUser] = useRecoilState(userState);
+  const log = useRecoilValue(updateUser);
+
+
   const sideMenuVariant = {
     hidden:{
         scale:0,
@@ -144,6 +180,8 @@ export default function SignIn(props) {
         }
     }
 }
+
+
 
 
   const [setToken,getToken] = useToken();
@@ -176,7 +214,6 @@ export default function SignIn(props) {
     //       history.push('/home');
     // })
     setOpenLogin(true)
-
     setStatus('error');
 }
 
@@ -211,6 +248,8 @@ const _reset = ()=>{
 
 // }, [])
 
+console.log('USERR',_user,log)
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -230,9 +269,38 @@ const _reset = ()=>{
                         : null
                     }
                     
-      <Grid item xs={false} sm={4} md={6} className={classes.image} />
-      <Grid item xs={12} sm={8} md={6} component={Paper} elevation={0} square style={{padding:'50px',display:'flex',flexDirection:'column',justifyContent:'center'}}>
+      <Grid item xs={false} sm={4} md={6} className={classes.image}>
+        <Grid item md={12} style={{display:'flex',justifyContent:'space-between'}}>
+          <motion.img  variants={aMotion} animate='animateAlpha' width='130'   src={alpha_a} />
+          <motion.img  variants={kMotion} animate='animateAlpha' width='130'   src={alpha_K} />
+          <motion.img  variants={fourMotion} animate='animateAlpha' width='130'   src={alpha_4} />
+        </Grid>
 
+        <Grid item md={12} style={{display:'flex',justifyContent:'space-between'}}>
+          <motion.img  variants={iMotion} animate='animateAlpha' width='130'   src={alpha_i} />
+          <motion.img  variants={rMotion} animate='animateAlpha' width='130'   src={alpha_r} />
+          <motion.img  variants={oneMotion} animate='animateAlpha' width='130'   src={alpha_1} />
+        </Grid>
+
+        <Grid item md={12} style={{display:'flex',justifyContent:'flex-end'}}>
+          <motion.img  variants={iMotion} animate='animateAlpha' width='130'  style={{marginRight:'130px'}} src={alpha_j} />
+          <motion.img  variants={iMotion} animate='animateAlpha' width='130'  style={{marginRight:'130px'}} src={alpha_u} />
+
+        </Grid>
+
+        <Grid item md={12} style={{display:'flex',justifyContent:'space-between'}}>
+          <motion.img  variants={zMotion} animate='animateAlpha' width='130'   src={alpha_z} />
+          <motion.img  variants={rMotion} animate='animateAlpha' width='130'   src={alpha_dot} />
+          <motion.img  variants={oneMotion} animate='animateAlpha' width='130'   src={alpha_f} />
+        </Grid>
+        <Grid item md={12} style={{display:'flex',justifyContent:'space-between',marginTop:'35px'}}>
+          <motion.img  variants={QMotion} animate='animateAlpha' width='130'   src={alpha_Q} />
+          <motion.img  variants={andMotion} animate='animateAlpha' width='130'   style={{marginTop:'-20px'}} src={alpha_and} />
+          <motion.img  variants={mMotion} animate='animateAlpha' width='130'   src={alpha_m} />
+        </Grid>
+        </Grid>
+        
+      <Grid item xs={12} sm={8} md={6} component={Paper} elevation={0} square style={{padding:'50px',display:'flex',flexDirection:'column',justifyContent:'center'}}>
         <motion.div variants={sideMenuVariant} initial='hidden' animate='visible' className={classes.paper}>
           <Avatar className={classes.avatar} src={logo} variant='square' />
           <Typography variant="span" style={{alignSelf:'center',fontSize:'15px',fontWeight:100}}>
@@ -317,6 +385,7 @@ const _reset = ()=>{
             className={classes.txtInput}
             onChange={(e)=>{dispatch({type:'userName',value:e.target.value})}}
           />
+          
           {
               !loadingResetPass && 
               <Button
@@ -335,7 +404,12 @@ const _reset = ()=>{
                <CircularProgress size={24}        className={classes.loader} />
             </div>
             }
-          <BackIcon style={{width:'40px',height:'40px',fill:'#c4c4c4',cursor:'pointer'}} onClick={()=>{setforgotPass(false);setloadingResetPass(false)}} />
+            <Grid item style={{textAlign:'center'}}>
+                        <motion.span  whileHover={{color:'#6A7BFF'}} style={{color:'#c4c4c4',fontSize:'13px',cursor:'pointer'}}onClick={()=>{setforgotPass(false);setloadingResetPass(false)}}>
+                          Already have an account? Sign in.
+                        </motion.span>
+            </Grid>
+          {/* <BackIcon style={{width:'40px',height:'40px',fill:'#c4c4c4',cursor:'pointer'}} onClick={()=>{setforgotPass(false);setloadingResetPass(false)}} /> */}
           </form>
 }
         </motion.div>
