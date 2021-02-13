@@ -1,7 +1,8 @@
 export const aMotion={
     animateAlpha:{
         y:[0,-30],
-        rotate: -40,
+         //rotate: -156,
+        //  scale:[1,0],
   
         transition:{
            
@@ -10,6 +11,15 @@ export const aMotion={
                 duration:0.9,
                 // ease:'easeOut'
             },
+            // scale:{
+            //     yoyo:Infinity,
+            //     duration:1.2
+            // }
+            // rotate:{
+            //     yoyo:Infinity,
+            //     duration:2,
+            //     // ease:'easeOut'
+            // },
           
         }
     }
@@ -18,8 +28,8 @@ export const aMotion={
 
   export const kMotion={
     animateAlpha:{
-        y:[0,-30],
-        rotate: -25,
+        y:[-15,20],
+         rotate: [40,-40],
        
   
         transition:{
@@ -27,6 +37,11 @@ export const aMotion={
             y:{
                 yoyo:Infinity,
                 duration:0.9,
+                // ease:'easeOut'
+            },
+            rotate:{
+                yoyo:Infinity,
+                duration:2,
                 // ease:'easeOut'
             },
           
@@ -36,8 +51,9 @@ export const aMotion={
 
   export const fourMotion={
     animateAlpha:{
-        y:[0,-30],
-        rotate: -24,
+        y:[-5,20],
+        //rotate: [24,-20],
+        x:[0,30],
        
   
         transition:{
@@ -47,6 +63,16 @@ export const aMotion={
                 duration:0.9,
                 // ease:'easeOut'
             },
+            x:{
+                yoyo:Infinity,
+                duration:0.9,
+                 //ease:'easeOut'
+            },
+            // rotate:{
+            //     yoyo:Infinity,
+            //     duration:0.9,
+            //     // ease:'easeOut'
+            // },
           
         }
     }
@@ -54,8 +80,9 @@ export const aMotion={
   export const iMotion={
     animateAlpha:{
         y:[10,30],
-        rotate: 26,
-        x:-20,
+        //rotate: 168,
+
+        // x:-20,
   
         transition:{
            
@@ -64,6 +91,39 @@ export const aMotion={
                 duration:0.9,
                 // ease:'easeOut'
             },
+            // rotate:{
+            //     yoyo:Infinity,
+            //     duration:2,
+            //     // ease:'easeOut'
+            // },
+          
+        }
+    }
+  }
+  export const jMotion={
+    animateAlpha:{
+        y:[10,30],
+        //rotate: 168,
+
+        x:[10,-20],
+  
+        transition:{
+           
+            y:{
+                yoyo:Infinity,
+                duration:0.9,
+                // ease:'easeOut'
+            },
+            x:{
+                yoyo:Infinity,
+                duration:0.9,
+                // ease:'easeOut'
+            },
+            // rotate:{
+            //     yoyo:Infinity,
+            //     duration:2,
+            //     // ease:'easeOut'
+            // },
           
         }
     }
@@ -72,14 +132,19 @@ export const aMotion={
   export const rMotion={
     animateAlpha:{
         y:[30,-10],
-        rotate: 26,
-        x:-20,
+         rotate: 360,
+        // x:-20,
   
         transition:{
            
             y:{
                 yoyo:Infinity,
                 duration:0.9,
+                // ease:'easeOut'
+            },
+            rotate:{
+                yoyo:Infinity,
+                duration:5,
                 // ease:'easeOut'
             },
           
@@ -88,11 +153,11 @@ export const aMotion={
   }
 
 
-  export const oneMotion={
+  export const dotMotion={
     animateAlpha:{
         y:[30,-10],
-        rotate: -26,
-        x:20,
+        // rotate: 180,
+        // x:-20,
   
         transition:{
            
@@ -101,6 +166,39 @@ export const aMotion={
                 duration:0.9,
                 // ease:'easeOut'
             },
+            // rotate:{
+            //     yoyo:Infinity,
+            //     duration:2,
+            //     // ease:'easeOut'
+            // },
+          
+        }
+    }
+  }
+
+  export const oneMotion={
+    animateAlpha:{
+        y:[30,-10],
+         //rotate: 30,
+        // x:20,
+            // scale:[0,1],
+        transition:{
+           
+            y:{
+                yoyo:Infinity,
+                duration:1.2,
+                // ease:'easeOut'
+            },
+            // scale:{
+            //     yoyo:Infinity,
+            //     duration:0.9,
+            //     // ease:'easeOut'
+            // },
+            // rotate:{
+            //     yoyo:Infinity,
+            //     duration:2,
+            //     // ease:'easeOut'
+            // },
           
         }
     }
@@ -109,8 +207,8 @@ export const aMotion={
   export const zMotion={
     animateAlpha:{
         y:[30,-10],
-        rotate: 40,
-        x:20,
+         //rotate: 123,
+        // x:20,
   
         transition:{
            
@@ -119,6 +217,11 @@ export const aMotion={
                 duration:0.9,
                 // ease:'easeOut'
             },
+            // rotate:{
+            //     yoyo:Infinity,
+            //     duration:2,
+            //     // ease:'easeOut'
+            // },
           
         }
     }
@@ -126,9 +229,9 @@ export const aMotion={
 
   export const QMotion={
     animateAlpha:{
-        y:[30,-10],
-        rotate: -20,
-        x:20,
+        y:[-70,0],
+         //rotate: -90,
+        // x:20,
   
         transition:{
            
@@ -137,6 +240,11 @@ export const aMotion={
                 duration:0.9,
                 // ease:'easeOut'
             },
+            // rotate:{
+            //     yoyo:Infinity,
+            //     duration:2,
+            //     // ease:'easeOut'
+            // },
           
         }
     }
@@ -144,8 +252,8 @@ export const aMotion={
 
   export const andMotion={
     animateAlpha:{
-        y:[0,-20],
-        rotate: -20,
+        y:[-20,0],
+         //rotate: 210,
         x:20,
   
         transition:{
@@ -155,6 +263,18 @@ export const aMotion={
                 duration:0.9,
                 // ease:'easeOut'
             },
+
+            x:{
+                yoyo:Infinity,
+                duration:0.9,
+                // ease:'easeOut'
+            },
+            // rotate:{
+            //     yoyo:Infinity,
+            //     duration:2,
+            //     // ease:'easeOut'
+            // },
+            
           
         }
     }
@@ -163,9 +283,9 @@ export const aMotion={
 
   export const mMotion={
     animateAlpha:{
-        y:[10,30],
-        rotate: 60,
-        x:-5,
+        y:[-18,0],
+        //rotate: 160,
+         x:[-10,10],
         
         transition:{
             
@@ -174,6 +294,17 @@ export const aMotion={
                 duration:0.9,
                 // ease:'easeOut'
             },
+              
+            x:{
+                yoyo:Infinity,
+                duration:1,
+                //  ease:'easeOut'
+            },
+            // rotate:{
+            //     yoyo:Infinity,
+            //     duration:2,
+            //     // ease:'easeOut'
+            // },
           
         }
     }

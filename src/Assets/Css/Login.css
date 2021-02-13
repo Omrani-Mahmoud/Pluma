@@ -1,0 +1,14 @@
+.imgContainer{
+    background-color: rgb(217,221,251);
+    display:flex;
+    justify-content:space-evenly;
+    flex-direction:column;
+}
+
+
+@media screen and (max-width: 600px) {
+.imgContainer{
+    visibility: hidden;
+    display: none;
+}
+}
