@@ -5,6 +5,7 @@ import SignIn from './Views/Login/SignIn';
 import {
   RecoilRoot,
 } from 'recoil';
+import Home from './Views/Home/Home';
 const history = createBrowserHistory();
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
           <Router  history={history}>
               <Switch >
                 <Route component={SignIn} exact path='/'/> 
-                {/* <Route component={Home}  path='/home'/> */}
+                <Route component={Home}  path='/home'/>
+                
                 {/* <ProtectedRoute  component={Home}  path='/home' /> */}
 
                   {/* <ProtectedRoute  component={Dashboard}  path='/home' /> */}

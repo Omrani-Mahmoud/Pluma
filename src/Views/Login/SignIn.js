@@ -35,7 +35,7 @@ import {
   useRecoilValue,
 } from "recoil";
 
-import { userState } from "../../Atoms/UserAtom";
+import { userState } from "../../Atoms/Atoms";
 import { updateUser } from "../../Selectors/UserSelector";
 
 import alpha_a from "../../Assets/img/Angle_C4/a2_0003.png";

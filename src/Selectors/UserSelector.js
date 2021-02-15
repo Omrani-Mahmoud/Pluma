@@ -5,7 +5,7 @@ import {
     useRecoilState,
     useRecoilValue,
   } from 'recoil';
-import {userState} from '../Atoms/UserAtom'
+import {userState} from '../Atoms/Atoms'
 
 
 export const updateUser = selector({
