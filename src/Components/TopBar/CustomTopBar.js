@@ -29,6 +29,12 @@ import { motion } from 'framer-motion';
 import Langue from '../Language Items/Langue';
 import WorkspaceItem from '../Workspaces items/WorkspaceItem';
 import {activeWorkspace} from '../../Selectors/WorkspaceSelector'
+import CustomAccording from '../../Components/SideBar/CustomAccording'
+import ProductForm from '../Product Section/ProductForm';
+import { Switch, Route, Link,useLocation } from 'react-router-dom';
+import Empty from '../Empty';
+import { Grid } from '@material-ui/core';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -63,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
       height:'85px',
         boxShadow:'0px 3px 5px 0px rgba(234 ,235, 239, .7)',
     //   borderBottom:'1px solid #C4C4C4'
+    zIndex:9999
   
     },
   },
@@ -86,16 +93,20 @@ const useStyles = makeStyles((theme) => ({
   drawerPaperWeb: {
     width: drawerWidth,
     marginTop:'85px',
-    paddingTop:'20px',
+    paddingTop:'75px',
     border:'none',
-    zIndex:'-99'
+    
  
   
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    background:'rgb(245,246,250)'
+    background:'rgb(245,246,250)',
+    paddingTop:'84px',
+    flexDirection:'row',
+    display:"flex"
+
   },
 }));
 
@@ -224,7 +235,7 @@ setisProfileMenuOpen(null)
       <Divider />
       <List>
         {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
+          <ListItem button key={text} onClick={()=>console.log('aaaa')}>
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
@@ -239,7 +250,7 @@ setisProfileMenuOpen(null)
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
+      <AppBar position="absolute" className={classes.appBar}>
         <Toolbar style={{paddingLeft:'0px',paddingRight:'0px'}} >
           <IconButton
             color="inherit"
@@ -276,7 +287,7 @@ setisProfileMenuOpen(null)
                         anchorEl={isInputMenuOpen}
                         open={Boolean(isInputMenuOpen)}
                         onClose={handleInputMenuClose}
-                        style={{marginTop:'35px',textAlign:'center'}}
+                        style={{marginTop:'60px',textAlign:'center'}}
                         >
                             {
                                 languages.map((elem,index)=>{
@@ -309,7 +320,7 @@ setisProfileMenuOpen(null)
                         anchorEl={isOutputMenuOpen}
                         open={Boolean(isOutputMenuOpen)}
                         onClose={handleOutputMenuClose}
-                        style={{marginTop:'35px',textAlign:'center'}}
+                        style={{marginTop:'60px',textAlign:'center'}}
                         >
                             {
                                 languages.map((elem,index)=>{
@@ -341,7 +352,7 @@ setisProfileMenuOpen(null)
                         anchorEl={isMenuOpen}
                         open={Boolean(isMenuOpen)}
                         onClose={handleMenuClose}
-                        style={{marginTop:'35px',textAlign:'center'}}
+                        style={{marginTop:'60px',textAlign:'center'}}
                         >
                             {
                                 workSpace.map((elem,index)=>{
@@ -377,7 +388,7 @@ setisProfileMenuOpen(null)
                         anchorEl={isProfileMenu}
                         open={Boolean(isProfileMenu)}
                         onClose={handleProfileMenuClose}
-                        style={{marginTop:'45px',textAlign:'center'}}
+                        style={{marginTop:'70px',textAlign:'center'}}
                         >
                             
                                 
@@ -424,35 +435,24 @@ setisProfileMenuOpen(null)
             variant="permanent"
             open
           >
-            {web_drawer}
+           <CustomAccording />
           </Drawer>
         </Hidden>
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-          facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-          gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-          donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-          Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-          imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-          arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-          donec massa sapien faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-          facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-          tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-          consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-          vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
-          hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et
-          tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
-          nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
-          accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        <Grid item md={6} xs ={12} style={{height:'100%',overflowY:'auto'}}>
+                          <Switch>
+                                <Route exact path='/home' component={Empty}/>
+                                
+                                <Route path='/home/product_description' component={ProductForm}/>
+
+                          </Switch>
+        </Grid>
+        <Grid item md={6} xs ={12} style={{height:'100%',overflowY:'auto'}}>
+          <h3>res here</h3>
+        </Grid>
+   
       </main>
     </div>
   );

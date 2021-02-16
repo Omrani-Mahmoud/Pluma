@@ -1,65 +1,69 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
+import { withStyles } from '@material-ui/core/styles';
+import MuiAccordion from '@material-ui/core/Accordion';
+import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
+import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SingleAccording from './SingleAccording';
 
-const useStyles = makeStyles((theme) => ({
+const Accordion = withStyles({
   root: {
-    width: '100%',
+    border: '1px solid rgba(0, 0, 0, .125)',
+    boxShadow: 'none',
+    '&:not(:last-child)': {
+      borderBottom: 0,
+    },
+    '&:before': {
+      display: 'none',
+    },
+    '&$expanded': {
+      margin: 'auto',
+    },
   },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
-  },
-}));
+  expanded: {},
+})(MuiAccordion);
 
-export default function SimpleAccordion() {
-  const classes = useStyles();
+const AccordionSummary = withStyles({
+  root: {
+    backgroundColor: 'white',
+
+    marginBottom: -0,
+    minHeight: 56,
+    '&$expanded': {
+      minHeight: 56,
+    },
+  },
+  content: {
+    '&$expanded': {
+      margin: '12px 0',
+    },
+  },
+  expanded: {},
+})(MuiAccordionSummary);
+
+const AccordionDetails = withStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+
+  },
+}))(MuiAccordionDetails);
+
+export default function CustomAccording() {
+  const [expanded, setExpanded] = React.useState('');
+  const [activePath, setactivePath] = React.useState('')
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
 
   return (
-    <div className={classes.root}>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography className={classes.heading}>Accordion 1</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography className={classes.heading}>Accordion 2</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion disabled>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel3a-content"
-          id="panel3a-header"
-        >
-          <Typography className={classes.heading}>Disabled Accordion</Typography>
-        </AccordionSummary>
-      </Accordion>
+    <div>
+      <SingleAccording expanded={expanded} handleChange={handleChange} name='panel1' content={{name:'Email & letters',options:[{name:'Test',link:'/fafa'}]}} activePath={activePath} setter={setactivePath} />
+
+      <SingleAccording expanded={expanded} handleChange={handleChange} name='panel2' content={{name:'Products',options:[{name:'Product Descriptions',link:'/product_description'}]}} activePath={activePath} setter={setactivePath}/>
+
+      <SingleAccording expanded={expanded} handleChange={handleChange} name='panel3' content={{name:'Social ADS',options:[{name:'Test',link:'/home'}]}} activePath={activePath} setter={setactivePath}/>
+
     </div>
   );
 }

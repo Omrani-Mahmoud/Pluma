@@ -1,0 +1,17 @@
+
+@font-face {
+    font-family: 'MontserratBold';
+    src: local('MontserratBold'), url(../font/Montserrat/Montserrat-Bold.ttf) format('truetype');
+  }
+
+
+.boldText{
+    font-family: 'MontserratBold', sans-serif !important;
+    color:#6A7BFF;
+
+ 
+}
+
+.salma{
+    font-size: 13px  !important;
+}
