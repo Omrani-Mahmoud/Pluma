@@ -6,6 +6,11 @@ import { usePagination } from '@material-ui/lab/Pagination';
 import { makeStyles } from '@material-ui/core/styles';
 import {ReactComponent as LeftIcon} from '../../Assets/Icons/svg/fi-rs-angle-small-left.svg';
 import {ReactComponent as RightIcon} from '../../Assets/Icons/svg/fi-rs-angle-small-right.svg';
+
+
+import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
+import {resultsState} from '../../Atoms/Atoms'
+
 const useStyles = makeStyles({
     ul: {
       listStyle: 'none',
@@ -21,6 +26,8 @@ function Result() {
     const [page, setpage] = React.useState(1);
     const [pagesCount, setpageCount] = React.useState(0);
     const [itemsToDisplay, setitemsToDisplay] = React.useState([{}]);
+    const [results,setResults] = useRecoilState(resultsState);
+
     const { items } = usePagination({
         count: pagesCount,
       });
@@ -91,8 +98,8 @@ const _addPage = ()=>{
         <Grid item md={12} xs ={12} style={{padding:'20px',height:'100%'}}>
        <div style={{background:'white',marginTop:'0px',padding:'5px',display:'flex',flexDirection:'column',background:'rgb(245,246,250)'}}>
             {
-                data.map((elem,index)=>{
-                    return <CustomCard index={index} content={elem.content} />
+                results.data && results.data.map((elem,index)=>{
+                    return <CustomCard index={index} content={elem} />
                 })
             }
             <Pagination count={pagesCount} shape="rounded"  style={{alignSelf:'center'}} onChange={(e,page)=>{handlePageChange(page)}} page={page}/>

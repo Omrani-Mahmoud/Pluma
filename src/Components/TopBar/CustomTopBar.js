@@ -18,7 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
-import {userState,workSpaceState,languagesState} from '../../Atoms/Atoms'
+import {userState,workSpaceState,languagesState,resultsState} from '../../Atoms/Atoms'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -147,6 +147,7 @@ function CustomTopBar(props) {
   const [user,setUser] = useRecoilState(userState);
   const [workSpace,setWorkSpace] = useRecoilState(workSpaceState);
   const [languages,setLanguages] = useRecoilState(languagesState);
+  const [resultsStatus,setResultsStatus] = useRecoilState(resultsState);
 
 
   const [activeLanguages,setActiveLanguages] = React.useState({
@@ -506,7 +507,7 @@ setisProfileMenuOpen(null)
                                 <Route path='/home/facebookprimarytext' component={FacebookPrimaryTextForm}/>
                                 <Route path='/home/googledescription' component={GoogleDescriptionForm}/>
                                 <Route path='/home/googleheadlines' component={GoogleHeadlinesForm}/>
-                                <Route path='/home/aida' component={AidaForm}/>
+                                <Route path='/home/aida' component={()=><AidaForm languages={activeLanguages} />} />
                                 <Route path='/home/bab' component={BABForm}/>
                                 <Route path='/home/emotionalAngles' component={EmoAnglesForm}/>
                                 <Route path='/home/featureAdvantageBenefit' component={FABForm}/>
@@ -523,7 +524,10 @@ setisProfileMenuOpen(null)
                           </Switch>
             </Grid>
             <Grid item md={6} xs ={12} style={{height:'100%',overflowY:'auto'}}>
-              <Result />
+              {
+                resultsStatus.display && 
+                <Result />
+              }
             </Grid>
           </>
         }

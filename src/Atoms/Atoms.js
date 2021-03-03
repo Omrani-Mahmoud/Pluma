@@ -18,7 +18,6 @@ import {
   export const workSpaceState = atom({
     key: 'workSpaceState',
     default: [
-   
       {name:'Bicycle booth',isActive:true},
       {name:'Alissar',isActive:false},
       {name:'Logistio',isActive:false},
@@ -31,6 +30,12 @@ import {
   export const languagesState = atom({
     key: 'languagesState',
     default: ['English','French','German','Italian','Spanish','Polish','Portuguese','Norwegian','Finnich','Danish','Swedish'],
+  });
+
+
+  export const resultsState = atom({
+    key: 'resultsState',
+    default: {display:false,data:[]},
   });
 
 

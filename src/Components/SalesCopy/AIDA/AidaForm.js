@@ -5,6 +5,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import '../../../Assets/Css/ProductForm.css'
 import CustomInput from './CustomInput';
 import CustomTextArea from './CustomTextArea.js';
+import axios from 'axios';
+
+import {uri} from '../../../Url_base';
+import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
+import {resultsState} from '../../../Atoms/Atoms'
 
 
 const initValue = {
@@ -33,12 +38,61 @@ const reducer =(state,action)=>{
     }
 }
 
-function AidaForm() {
+function AidaForm({languages}) {
     const [formValue, dispatch] = React.useReducer(reducer, initValue);
     const [checked, setchecked] = React.useState(false);
+    const [results,setResults] = useRecoilState(resultsState);
+
     const handleChange = (event) => {
         setchecked(event.target.checked);
       };
+
+    const _getResults = ()=>{
+        let body = {
+            inp:languages.input,
+            prod_name:formValue.prod_name,
+            description:formValue.desc,
+        };
+
+        let req = `${languages.input}/${formValue.prod_name}/${formValue.desc}`
+        
+        if(formValue.target.length>0)
+            req = `${req}/${formValue.target}`
+
+        if(formValue.occasion.length>0)
+            req =`${req}/${formValue.occasion}`
+        
+        if(formValue.promotion.length>0)
+            req =`${req}/${formValue.promotion}`
+
+        if(formValue.target.length>0)
+            body = {...body,target:formValue.target}
+
+        if(formValue.occasion.length>0)
+            body = {...body,occasion:formValue.occasion}
+        
+        if(formValue.promotion.length>0)
+            body = {...body,promotion:formValue.promotion}
+
+        axios.post(`${uri.link}/aida/${req}`,body)
+          .then(function (response) {
+            console.log(response.data.data);
+            setResults({...results,display:true});
+            if(response.data.data.length>0){
+                setResults({...results,data:response.data.data});
+            }
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+        console.log('BODY HERE  ====>',body)
+    }
+
+
+    console.log('ATOM HERE ====>',results)
+    
     return (
         <Grid item md={12} xs ={12} style={{padding:'20px'}}>
                 <section style={{background:'rgb(217,221,251)',padding:'10px',textAlign:'center'}}>
@@ -72,7 +126,7 @@ function AidaForm() {
                     style={{background:'#6A7BFF',color:'white',marginTop:'20px',borderRadius:'0px'}}
                     fullWidth
                     variant="contained"
-                    onClick={()=>console.log('hahahahahahahahah',formValue)}
+                    onClick={()=>_getResults()}
                     >
                   Create
                 </Button>

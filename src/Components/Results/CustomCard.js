@@ -38,11 +38,11 @@ function CustomCard({index,content}) {
          <Paper elevation={0} square style={{height:'33vh',marginBottom:'10px',padding:'24px',width:'100%',marginRight:'15px'}}>
             
          <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
-             <div style={{height:'22vh',overflowY:'auto'}}>
+             <div style={{height:'22vh'}}>
              <span><b style={{fontSize:'18px',marginLeft:'10px',fontWeight:'bold'}}>{`Result ${index}`}</b></span>
              <Divider variant="middle" style={{marginTop:'10px',marginLeft:'-10px'}} />
 
-             <p style={{display:'inline-block',wordWrap:'break-word',whiteSpace:'initial',overflowWrap:"break-word",padding:'10px',fontSize:'15px'}}>{content}</p>
+             <p  style={{height:'16vh',overflowY:'auto',display:'inline-block',wordWrap:'break-word',whiteSpace:'initial',overflowWrap:"break-word",padding:'10px',fontSize:'15px'}}>{content.replace('text: ','')}</p>
              </div>
              <section style={{float:'right',marginRight:'-10px',paddingTop:'10px',display:'flex',justifyContent:'flex-end'}}>
                      <DownloadIcon  style={styleDonwload} onMouseEnter={()=>sethoverIcons({...hoverIcons,download:true})} onMouseLeave={()=>sethoverIcons({...hoverIcons,download:false})} />
