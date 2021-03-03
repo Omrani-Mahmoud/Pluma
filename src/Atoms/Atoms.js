@@ -10,7 +10,7 @@ import {
 
   export const userState = atom({
     key: 'userState',
-    default: {first_name:'mahmoud',last_name:'omrani'},
+    default: {fullname:'mahmoud Omrani',email:'omrani@omrani.com'},
   });
 
 
@@ -30,7 +30,7 @@ import {
 
   export const languagesState = atom({
     key: 'languagesState',
-    default: ['English','French','Arabic','Spanish','Chinese','Italian'],
+    default: ['English','French','German','Italian','Spanish','Polish','Portuguese','Norwegian','Finnich','Danish','Swedish'],
   });
 
 

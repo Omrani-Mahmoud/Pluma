@@ -23,7 +23,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import logo from '../../Assets/img/pluma logo/Pluma Logo.png'
+import logo from '../../Assets/img/pluma logo/Logo.svg'
 import '../../Assets/Css/TopBar.css'
 import { motion } from 'framer-motion';
 import Langue from '../Language Items/Langue';
@@ -34,6 +34,27 @@ import ProductForm from '../Product Section/ProductForm';
 import { Switch, Route, Link,useLocation } from 'react-router-dom';
 import Empty from '../Empty';
 import { Grid } from '@material-ui/core';
+import Result from '../Results/Result';
+import FavoriteContainer from '../../Views/Favorite/FavoriteContainer';
+import WorkspacesContainer from '../../Views/Workspaces/WorkspacesContainer';
+import ProfileContainer from '../../Views/Profile/ProfileContainer';
+import EmailForm from '../Email Section/Email Headlines/EmailForm';
+import FacebookHeadLinesForm from '../Social ADS/Facebook Headlines/FacebookHeadLinesForm';
+import FacebookLinkDescForm from '../Social ADS/Facebook Link Desc/FacebookLinkDescForm';
+import FacebookPrimaryTextForm from '../Social ADS/Facebook Primary Text/FacebookPrimaryTextForm';
+import GoogleDescriptionForm from '../Social ADS/Google Description/GoogleDescriptionForm';
+import GoogleHeadlinesForm from '../Social ADS/Google Headlines/GoogleHeadlinesForm';
+import AidaForm from '../SalesCopy/AIDA/AidaForm';
+import BABForm from '../SalesCopy/Before After bridge/BABForm';
+import EmoAnglesForm from '../SalesCopy/Emotional angles/EmoAnglesForm';
+import FABForm from '../SalesCopy/Feature advantage benefit/FABForm';
+import FTBForm from '../SalesCopy/Feature to benefits/FTBForm';
+import FunctionalBenefitForm from '../SalesCopy/Functional benefits/FunctionalBenefitForm';
+import MarketingAnglesForm from '../SalesCopy/Marketing angles/MarketingAnglesForm';
+import PASForm from '../SalesCopy/Pain agitate solution/PASForm';
+import PPPForm from '../SalesCopy/Problem promise proof/PPPForm';
+import BlogIntroForm from '../WebsitesCopy/BlogIntro/BlogIntroForm';
+import ListiclesForm from '../WebsitesCopy/Listicles/ListiclesForm';
 
 const drawerWidth = 240;
 
@@ -48,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(7),
   },
   logo_large: {
-    width: '201px',
+    width: '210px',
     padding:'15px',
     height: theme.spacing(10),
     marginLeft:'18px'
@@ -95,10 +116,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop:'85px',
     paddingTop:'75px',
     border:'none',
-    
- 
-  
+    overflowY:'auto',
+    maxHeight:'88vh'
   },
+
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -111,6 +132,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CustomTopBar(props) {
+
+  let location=useLocation();
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -130,6 +153,9 @@ function CustomTopBar(props) {
       input:'English',
       output:'English'
   });
+
+
+  console.log(location.pathname)
 
   const handleWorkeSpaces = (v)=>{
       let wrong = [];
@@ -247,6 +273,10 @@ setisProfileMenuOpen(null)
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
+  const _getuserName = ()=>{
+      let name = user.fullname.split(' ');
+      return `${name[0]}.${name[1][0]}`
+  }
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -332,9 +362,9 @@ setisProfileMenuOpen(null)
 
                     </Menu>
                 </section>
-                <motion.section  whileHover={{ color: "#6A7BFF" }} style={{width:'10%',flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',color:'#202020',borderLeft:'2px solid rgb(246,246,246)',cursor:'pointer'}}>
-                    Favorite List
-                </motion.section>
+                <section   style={{width:'10%',flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',color:'#202020',borderLeft:'2px solid rgb(246,246,246)',cursor:'pointer'}}>
+                    <Link to='/home/favorite' style={{textDecoration:'none'}} whileHover={{ color: "#6A7BFF" }}  ><motion.span whileHover={{ color: "#6A7BFF" }} style={{color:'#202020'}}>Favorite List</motion.span></Link>
+                </section>
                 <section style={{width:'15%',flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',borderLeft:'2px solid rgb(246,246,246)'}}>
                 <span style={{color:'#6A7BFF',display:'flex',alignItems:'center',fontWeight:'bold',cursor:'pointer'}} onClick={handleMenuOpen}>{currentWorkspace.name}
                 {
@@ -371,7 +401,7 @@ setisProfileMenuOpen(null)
                 <section style={{width:'15%',flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',borderLeft:'2px solid rgb(246,246,246)'}}>
                     <Avatar variant="square" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Felix_Cat-Haha.svg/1200px-Felix_Cat-Haha.svg.png" className={classes.large} />
                     <span style={{textTransform:'capitalize',color:isProfileMenu?'#6A7BFF':'#202020',display:'flex',alignItems:'center',cursor:'pointer'}} onClick={handleProfileMenuOpen}>
-                        {`${user.first_name}.${user.last_name[0]}`}
+                        {_getuserName()}
                         {
                     isProfileMenu?
                     <ExpandLessIcon style={{marginLeft:'10px'}}/>
@@ -388,17 +418,16 @@ setisProfileMenuOpen(null)
                         anchorEl={isProfileMenu}
                         open={Boolean(isProfileMenu)}
                         onClose={handleProfileMenuClose}
-                        style={{marginTop:'70px',textAlign:'center'}}
-                        >
-                            
-                                
-                                    <MenuItem style={{width:'150px',textAlign:'center',fontSize:'13px',display:"flex",justifyContent:'center',color:'white'}} >Profile</MenuItem>
+                        style={{marginTop:'70px',textAlign:'center'}}>
+                                    <Link to='/home/profile' onClick={handleProfileMenuClose} style={{textDecoration:'none'}}>
+                                      <MenuItem  onClick={handleProfileMenuClose} style={{width:'150px',textAlign:'center',fontSize:'13px',display:"flex",justifyContent:'center',color:'white'}} >Profile</MenuItem>
+                                    </Link>
                                     <Divider variant="middle" style={{background:'white'}} />
-                                    <MenuItem style={{width:'150px',textAlign:'center',fontSize:'13px',display:"flex",justifyContent:'center',color:'white'}} >Logout</MenuItem>
-
-                            
-                           
-                            
+                                    <Link to='/home/workspaces' onClick={handleProfileMenuClose} style={{textDecoration:'none'}}>
+                                      <MenuItem style={{width:'150px',textAlign:'center',fontSize:'13px',display:"flex",justifyContent:'center',color:'white'}} >Workspaces</MenuItem>
+                                    </Link>
+                                    <Divider variant="middle" style={{background:'white'}} />
+                                    <MenuItem onClick={handleProfileMenuClose}  style={{width:'150px',textAlign:'center',fontSize:'13px',display:"flex",justifyContent:'center',color:'white'}} >Logout</MenuItem>    
                        
                         {/* <Divider variant="middle" /> */}
 
@@ -441,17 +470,66 @@ setisProfileMenuOpen(null)
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Grid item md={6} xs ={12} style={{height:'100%',overflowY:'auto'}}>
+        {
+          location.pathname==='/home/profile' && 
+          <Grid item md={12} xs ={12} style={{height:'100%',overflowY:'auto'}}>
+              <ProfileContainer />
+          </Grid>
+        }
+        {
+          location.pathname==='/home/workspaces' && 
+          <Grid item md={12} xs ={12} style={{height:'100%',overflowY:'auto'}}>
+              <WorkspacesContainer />
+          </Grid>
+        }
+        {
+          location.pathname==='/home/favorite' && 
+          <Grid item md={12} xs ={12} style={{height:'100%',overflowY:'auto'}}>
+            <FavoriteContainer />
+          </Grid>
+        }
+          {
+          location.pathname==='/home' && 
+          <>
+          <Empty />
+          </>
+        }
+        {
+            location.pathname!=='/home/profile' &&  location.pathname!=='/home/workspaces' && location.pathname!=='/home/favorite' && location.pathname!=='/home' && 
+          <>
+            <Grid item md={6} xs ={12} style={{height:'100%',overflowY:'auto'}}>
                           <Switch>
-                                <Route exact path='/home' component={Empty}/>
-                                
                                 <Route path='/home/product_description' component={ProductForm}/>
+                                <Route path='/home/emailheadlines' component={EmailForm}/>
+                                <Route path='/home/facebookheadlines' component={FacebookHeadLinesForm}/>
+                                <Route path='/home/facebooklinkdesc' component={FacebookLinkDescForm}/>
+                                <Route path='/home/facebookprimarytext' component={FacebookPrimaryTextForm}/>
+                                <Route path='/home/googledescription' component={GoogleDescriptionForm}/>
+                                <Route path='/home/googleheadlines' component={GoogleHeadlinesForm}/>
+                                <Route path='/home/aida' component={AidaForm}/>
+                                <Route path='/home/bab' component={BABForm}/>
+                                <Route path='/home/emotionalAngles' component={EmoAnglesForm}/>
+                                <Route path='/home/featureAdvantageBenefit' component={FABForm}/>
+                                <Route path='/home/featureToBenefits' component={FTBForm}/>
+                                <Route path='/home/functionalBenifit' component={FunctionalBenefitForm}/>
+                                <Route path='/home/marketingAngles' component={MarketingAnglesForm}/>
+                                <Route path='/home/PASolution' component={PASForm}/>
+                                <Route path='/home/Ppp' component={PPPForm}/>
+                                <Route path='/home/blogIntro' component={BlogIntroForm}/>
+                                <Route path='/home/listicles' component={ListiclesForm}/>
+
+
 
                           </Switch>
-        </Grid>
-        <Grid item md={6} xs ={12} style={{height:'100%',overflowY:'auto'}}>
-          <h3>res here</h3>
-        </Grid>
+            </Grid>
+            <Grid item md={6} xs ={12} style={{height:'100%',overflowY:'auto'}}>
+              <Result />
+            </Grid>
+          </>
+        }
+      
+       
+       
    
       </main>
     </div>

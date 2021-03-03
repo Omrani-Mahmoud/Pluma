@@ -18,7 +18,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import useToken from "../../Hooks/useToken";
 import useGetUser from "../../Hooks/useGetUser";
 import jwt from "jsonwebtoken";
-import logo from "../../Assets/img/pluma logo/Pluma Logo.png";
+import logo from "../../Assets/img/pluma logo/Logo.svg";
 import CustomSnackbar from "../../Components/SnackBars/CustomSnackBar";
 import axios from "axios";
 import { uri } from "../../Url_base";
