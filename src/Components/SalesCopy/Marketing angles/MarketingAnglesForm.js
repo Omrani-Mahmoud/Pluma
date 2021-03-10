@@ -6,6 +6,11 @@ import '../../../Assets/Css/ProductForm.css'
 import CustomInput from './CustomInput';
 import CustomTextArea from './CustomTextArea.js';
 
+import axios from 'axios'
+import {uri} from '../../../Url_base';
+import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
+import {resultsState} from '../../../Atoms/Atoms'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const initValue = {
     prod_name:'',
@@ -33,12 +38,44 @@ const reducer =(state,action)=>{
     }
 }
 
-function MarketingAnglesForm() {
+function MarketingAnglesForm(languages) {
     const [formValue, dispatch] = React.useReducer(reducer, initValue);
     const [checked, setchecked] = React.useState(false);
+    const [results,setResults] = useRecoilState(resultsState);
+    const [loading, setloading] = React.useState(false)
     const handleChange = (event) => {
         setchecked(event.target.checked);
       };
+
+
+      const _getResults = ()=>{
+        setloading(true);
+        let body = {
+            inp:languages.input,
+            prod_name:formValue.prod_name,
+            description:formValue.desc,
+        };
+
+        let req = `${languages.input}/${formValue.prod_name}/${formValue.desc}`
+        
+
+        axios.post(`${uri.link}/aida/${req}`,body)
+          .then(function (response) {
+            console.log(response.data.data);
+            setloading(false);
+            setResults({...results,display:true});
+            if(response.data.data.length>0){
+                setResults({...results,data:response.data.data});
+            }
+
+          })
+          .catch(function (error) {
+              setloading(false)
+            console.log(error);
+          });
+        }
+
+
     return (
         <Grid item md={12} xs ={12} style={{padding:'20px'}}>
                 <section style={{background:'rgb(217,221,251)',padding:'10px',textAlign:'center'}}>
@@ -53,14 +90,19 @@ function MarketingAnglesForm() {
                         checked={checked} onChange={handleChange} />
                 <label for="scales">More options</label> */}
                
+  {
+                    loading ?
+                    <CircularProgress size={24} style={{alignSelf:'center',marginTop:'35px'}}/>
+                    :
                 <Button
                     style={{background:'#6A7BFF',color:'white',marginTop:'20px',borderRadius:'0px'}}
                     fullWidth
                     variant="contained"
-                    onClick={()=>console.log('hahahahahahahahah',formValue)}
+                    onClick={()=>_getResults()}
                     >
                   Create
                 </Button>
+}
                </div>
         </Grid>
     )

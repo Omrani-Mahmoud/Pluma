@@ -6,6 +6,7 @@ import '../../../Assets/Css/ProductForm.css'
 import CustomInput from './CustomInput';
 import CustomTextArea from './CustomTextArea.js';
 import axios from 'axios';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import {uri} from '../../../Url_base';
 import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
@@ -39,6 +40,7 @@ const reducer =(state,action)=>{
 }
 
 function AidaForm({languages}) {
+    const [loading, setloading] = React.useState(false)
     const [formValue, dispatch] = React.useReducer(reducer, initValue);
     const [checked, setchecked] = React.useState(false);
     const [results,setResults] = useRecoilState(resultsState);
@@ -48,6 +50,7 @@ function AidaForm({languages}) {
       };
 
     const _getResults = ()=>{
+        setloading(true);
         let body = {
             inp:languages.input,
             prod_name:formValue.prod_name,
@@ -77,6 +80,7 @@ function AidaForm({languages}) {
         axios.post(`${uri.link}/aida/${req}`,body)
           .then(function (response) {
             console.log(response.data.data);
+            setloading(false);
             setResults({...results,display:true});
             if(response.data.data.length>0){
                 setResults({...results,data:response.data.data});
@@ -84,14 +88,12 @@ function AidaForm({languages}) {
 
           })
           .catch(function (error) {
+              setloading(false)
             console.log(error);
           });
-
-        console.log('BODY HERE  ====>',body)
-    }
+        }
 
 
-    console.log('ATOM HERE ====>',results)
     
     return (
         <Grid item md={12} xs ={12} style={{padding:'20px'}}>
@@ -122,7 +124,12 @@ function AidaForm({languages}) {
 
                     </div>    
                 }
-                <Button
+
+                {
+                    loading ?
+                    <CircularProgress size={24} style={{alignSelf:'center',marginTop:'35px'}}/>
+                    :
+                    <Button
                     style={{background:'#6A7BFF',color:'white',marginTop:'20px',borderRadius:'0px'}}
                     fullWidth
                     variant="contained"
@@ -130,7 +137,8 @@ function AidaForm({languages}) {
                     >
                   Create
                 </Button>
-               </div>
+                }
+                    </div>
         </Grid>
     )
 }

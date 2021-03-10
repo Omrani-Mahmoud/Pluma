@@ -4,8 +4,7 @@ import CustomCard from './CustomCard'
 import Pagination from '@material-ui/lab/Pagination';
 import { usePagination } from '@material-ui/lab/Pagination';
 import { makeStyles } from '@material-ui/core/styles';
-import {ReactComponent as LeftIcon} from '../../Assets/Icons/svg/fi-rs-angle-small-left.svg';
-import {ReactComponent as RightIcon} from '../../Assets/Icons/svg/fi-rs-angle-small-right.svg';
+
 
 
 import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";

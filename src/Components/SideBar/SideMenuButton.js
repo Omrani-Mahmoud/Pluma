@@ -13,7 +13,7 @@ function SideMenuButton({value,activePath,setter}) {
     return (
         <Link style={{textDecoration:'none',marginBottom:'13px'}} to={`/home${value.link}`} onClick={()=>{setter(value.link);setResults({...results,display:false})}}>
             
-        <motion.span whileHover={{color:'#6A7BFF'}}  style={{cursor:'pointer',color:activePath===value.link?'#6A7BFF':'#c4c4c4',padding:'5px'}}>{value.name}</motion.span>
+        <motion.span whileHover={{color:'#6A7BFF'}}  style={{cursor:'pointer',color:activePath===value.link?'#6A7BFF':'#c4c4c4',textAlign:'justify'}}>{value.name}</motion.span>
         </Link>
 
     )

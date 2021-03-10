@@ -500,24 +500,24 @@ setisProfileMenuOpen(null)
           <>
             <Grid item md={6} xs ={12} style={{height:'100%',overflowY:'auto'}}>
                           <Switch>
-                                <Route path='/home/product_description' component={ProductForm}/>
-                                <Route path='/home/emailheadlines' component={EmailForm}/>
-                                <Route path='/home/facebookheadlines' component={FacebookHeadLinesForm}/>
-                                <Route path='/home/facebooklinkdesc' component={FacebookLinkDescForm}/>
-                                <Route path='/home/facebookprimarytext' component={FacebookPrimaryTextForm}/>
-                                <Route path='/home/googledescription' component={GoogleDescriptionForm}/>
-                                <Route path='/home/googleheadlines' component={GoogleHeadlinesForm}/>
+                                <Route path='/home/product_description' component={()=> <ProductForm languages={activeLanguages} />}/>
+                                <Route path='/home/emailheadlines' component={()=> <EmailForm languages={activeLanguages} />}/>
+                                <Route path='/home/facebookheadlines' component={()=><FacebookHeadLinesForm languages={activeLanguages} />}/>
+                                <Route path='/home/facebooklinkdesc' component={()=> <FacebookLinkDescForm languages={activeLanguages}/>}/>
+                                <Route path='/home/facebookprimarytext' component={()=> <FacebookPrimaryTextForm languages={activeLanguages}/>}/>
+                                <Route path='/home/googledescription' component={()=> <GoogleDescriptionForm languages={activeLanguages} />}/>
+                                <Route path='/home/googleheadlines' component={()=> <GoogleHeadlinesForm languages={activeLanguages} />}/>
                                 <Route path='/home/aida' component={()=><AidaForm languages={activeLanguages} />} />
-                                <Route path='/home/bab' component={BABForm}/>
-                                <Route path='/home/emotionalAngles' component={EmoAnglesForm}/>
-                                <Route path='/home/featureAdvantageBenefit' component={FABForm}/>
-                                <Route path='/home/featureToBenefits' component={FTBForm}/>
-                                <Route path='/home/functionalBenifit' component={FunctionalBenefitForm}/>
-                                <Route path='/home/marketingAngles' component={MarketingAnglesForm}/>
-                                <Route path='/home/PASolution' component={PASForm}/>
-                                <Route path='/home/Ppp' component={PPPForm}/>
-                                <Route path='/home/blogIntro' component={BlogIntroForm}/>
-                                <Route path='/home/listicles' component={ListiclesForm}/>
+                                <Route path='/home/bab' component={()=><BABForm languages={activeLanguages} />}/>
+                                <Route path='/home/emotionalAngles' component={()=><EmoAnglesForm languages={activeLanguages} />}/>
+                                <Route path='/home/featureAdvantageBenefit' component={()=><FABForm languages={activeLanguages} />}/>
+                                <Route path='/home/featureToBenefits' component={()=><FTBForm languages={activeLanguages} />}/>
+                                <Route path='/home/functionalBenifit' component={()=><FunctionalBenefitForm languages={activeLanguages} />}/>
+                                <Route path='/home/marketingAngles' component={()=> <MarketingAnglesForm languages={activeLanguages} />}/>
+                                <Route path='/home/PASolution' component={()=> <PASForm languages={activeLanguages}/>}/>
+                                <Route path='/home/Ppp' component={()=> <PPPForm languages={activeLanguages} />}/>
+                                <Route path='/home/blogIntro' component={()=> <BlogIntroForm languages={activeLanguages} />}/>
+                                <Route path='/home/listicles' component={()=> <ListiclesForm languages={activeLanguages} />}/>
 
 
 
