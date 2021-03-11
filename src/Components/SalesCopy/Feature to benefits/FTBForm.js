@@ -76,13 +76,12 @@ function FTBForm({languages}) {
         if(formValue.promotion.length>0)
             body = {...body,promotion:formValue.promotion}
 
-        axios.post(`${uri.link}/aida/${req}`,body)
+        axios.post(`${uri.link}/ftb/${req}`,body)
           .then(function (response) {
-            console.log(response.data.data);
+           
             setloading(false);
-            setResults({...results,display:true});
             if(response.data.data.length>0){
-                setResults({...results,data:response.data.data});
+                setResults({...results,data:response.data.data,display:true});
             }
 
           })

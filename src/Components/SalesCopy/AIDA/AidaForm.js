@@ -79,11 +79,11 @@ function AidaForm({languages}) {
 
         axios.post(`${uri.link}/aida/${req}`,body)
           .then(function (response) {
-            console.log(response.data.data);
+           
             setloading(false);
-            setResults({...results,display:true});
+            // setResults({...results,});
             if(response.data.data.length>0){
-                setResults({...results,data:response.data.data});
+                setResults({...results,data:response.data.data,display:true});
             }
 
           })

@@ -59,13 +59,12 @@ function MarketingAnglesForm(languages) {
         let req = `${languages.input}/${formValue.prod_name}/${formValue.desc}`
         
 
-        axios.post(`${uri.link}/aida/${req}`,body)
+        axios.post(`${uri.link}/marketing/${req}`,body)
           .then(function (response) {
-            console.log(response.data.data);
+           
             setloading(false);
-            setResults({...results,display:true});
             if(response.data.data.length>0){
-                setResults({...results,data:response.data.data});
+                setResults({...results,data:response.data.data,display:true});
             }
 
           })
