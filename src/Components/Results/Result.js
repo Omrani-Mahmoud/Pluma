@@ -98,10 +98,10 @@ const _addPage = ()=>{
        <div style={{background:'white',marginTop:'0px',padding:'5px',display:'flex',flexDirection:'column',background:'rgb(245,246,250)'}}>
             {
                 results.data && results.data.map((elem,index)=>{
-                    return <CustomCard index={index} content={elem} />
+                    return <CustomCard index={index+1} content={elem} />
                 })
             }
-            <Pagination count={pagesCount} shape="rounded"  style={{alignSelf:'center'}} onChange={(e,page)=>{handlePageChange(page)}} page={page}/>
+            {/* <Pagination count={pagesCount} shape="rounded"  style={{alignSelf:'center'}} onChange={(e,page)=>{handlePageChange(page)}} page={page}/> */}
             {/* <nav>
       <ul className={classes.ul}>
         {items.map(({ page, type, selected, ...item }, index) => {

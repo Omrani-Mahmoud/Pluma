@@ -56,17 +56,22 @@ export default function CustomAccording() {
     setExpanded(newExpanded ? panel : false);
   };
 
+  const activePathSetter = (path)=>{
+    setactivePath(path);
+    window.localStorage.setItem('activePath',path)
+  }
+
   return (
     <div>
-      <SingleAccording expanded={expanded} handleChange={handleChange} name='panel1' content={{name:'Email & letters',options:[{name:'Email Headlines',link:'/emailheadlines'}]}} activePath={activePath} setter={setactivePath} />
+      <SingleAccording expanded={expanded} handleChange={handleChange} name='panel1' content={{name:'Email & letters',options:[{name:'Email Headlines',link:'/emailheadlines'}]}} activePath={activePath} setter={activePathSetter} />
 
-      <SingleAccording expanded={expanded} handleChange={handleChange} name='panel2' content={{name:'Products',options:[{name:'Product Descriptions',link:'/product_description'}]}} activePath={activePath} setter={setactivePath}/>
+      <SingleAccording expanded={expanded} handleChange={handleChange} name='panel2' content={{name:'Products',options:[{name:'Product Descriptions',link:'/product_description'}]}} activePath={activePath} setter={activePathSetter}/>
 
-      <SingleAccording expanded={expanded} handleChange={handleChange} name='panel3' content={{name:'Social ADS',options:[{name:'Facebook Headlines',link:'/facebookheadlines'},{name:'Facebook Link Desc..',link:'/facebooklinkdesc'},{name:'Facebook Primary Text',link:'/facebookprimarytext'},{name:'Google Description',link:'/googledescription'},{name:'Google Headlines',link:'/googleheadlines'}]}} activePath={activePath} setter={setactivePath}/>
+      <SingleAccording expanded={expanded} handleChange={handleChange} name='panel3' content={{name:'Social ADS',options:[{name:'Facebook Headlines',link:'/facebookheadlines'},{name:'Facebook Link Desc..',link:'/facebooklinkdesc'},{name:'Facebook Primary Text',link:'/facebookprimarytext'},{name:'Google Description',link:'/googledescription'},{name:'Google Headlines',link:'/googleheadlines'}]}} activePath={activePath} setter={activePathSetter}/>
 
-      <SingleAccording expanded={expanded} handleChange={handleChange} name='panel4' content={{name:'Sales Copy',options:[{name:'AIDA',link:'/aida'},{name:'Before After Bridge',link:'/bab'},{name:'Emotional Angles',link:'/emotionalAngles'},{name:'Feature Advantage Benefit',link:'/featureAdvantageBenefit'},{name:'Feature To Benefit',link:'/featureToBenefits'},{name:'Functional Benifit',link:'/functionalBenifit'},{name:'Marketing Angles',link:'/marketingAngles'},{name:'Pain Agitate Solution',link:'/PASolution'},{name:'Problem Promise Proof',link:'/Ppp'}]}} activePath={activePath} setter={setactivePath}/>
+      <SingleAccording expanded={expanded} handleChange={handleChange} name='panel4' content={{name:'Sales Copy',options:[{name:'AIDA',link:'/aida'},{name:'Before After Bridge',link:'/bab'},{name:'Emotional Angles',link:'/emotionalAngles'},{name:'Feature Advantage Benefit',link:'/featureAdvantageBenefit'},{name:'Feature To Benefit',link:'/featureToBenefits'},{name:'Functional Benifit',link:'/functionalBenifit'},{name:'Marketing Angles',link:'/marketingAngles'},{name:'Pain Agitate Solution',link:'/PASolution'},{name:'Problem Promise Proof',link:'/Ppp'}]}} activePath={activePath} setter={activePathSetter}/>
       
-      <SingleAccording expanded={expanded} handleChange={handleChange} name='panel5' content={{name:'Websites Copy',options:[{name:'Blog Introduction',link:'/blogIntro'},{name:'Listicles',link:'/listicles'}]}} activePath={activePath} setter={setactivePath} />
+      <SingleAccording expanded={expanded} handleChange={handleChange} name='panel5' content={{name:'Websites Copy',options:[{name:'Blog Introduction',link:'/blogIntro'},{name:'Listicles',link:'/listicles'}]}} activePath={activePath} setter={activePathSetter} />
     </div>
   );
 }

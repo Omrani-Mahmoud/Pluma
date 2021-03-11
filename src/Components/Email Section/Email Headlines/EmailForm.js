@@ -33,6 +33,8 @@ const reducer =(state,action)=>{
                         return{...state,occasion:action.value};
                         case 'promotion':
                             return{...state,promotion:action.value};
+                            case 'reset':
+                            return action.value;
     
         default:
             return state;
@@ -77,6 +79,8 @@ function EmailForm({languages}) {
         if(formValue.promotion.length>0)
             body = {...body,promotion:formValue.promotion}
 
+            window.localStorage.setItem('oldInputs',JSON.stringify(formValue))
+
         axios.post(`${uri.link}/email/${req}`,body)
           .then(function (response) {
            
@@ -92,15 +96,21 @@ function EmailForm({languages}) {
           });
         }
 
+
+        React.useEffect(() => {
+            const inputs = JSON.parse(window.localStorage.getItem('oldInputs'))
+            dispatch({type:'reset',value:inputs})
+        }, [])
+
     return (
         <Grid item md={12} xs ={12} style={{padding:'20px'}}>
                 <section style={{background:'rgb(217,221,251)',padding:'10px',textAlign:'center'}}>
                     <span className='boldText' style={{textTransform:'uppercase',fontSize:'30px'}}>Email Headlines</span>
                 </section>
                <div style={{background:'white',marginTop:'30px',padding:'20px',display:'flex',flexDirection:'column',justifyContent:'center'}}>
-              <CustomInput name='product name' placeholder='product name' action={dispatch} type='prod_name' />
+              <CustomInput v={formValue.prod_name} name='product name' placeholder='product name' action={dispatch} type='prod_name' />
 
-              <CustomTextArea action={dispatch} type='desc'/>
+              <CustomTextArea v={formValue.desc} action={dispatch} type='desc'/>
                <FormControlLabel
                     control={<Checkbox checked={checked} onChange={handleChange} name="checkedA" color='default' size="small" />}
                     label="More options"
@@ -113,11 +123,11 @@ function EmailForm({languages}) {
                 {
                     checked &&
                     <div>
-                        <CustomInput name='target audience' placeholder='Ex. digital marketers in Canada' margin={30}  action={dispatch} type='target' />
+                        <CustomInput  v={formValue.target} name='target audience' placeholder='Ex. digital marketers in Canada' margin={30}  action={dispatch} type='target' />
 
-                        <CustomInput name='occasion' placeholder="ex. valentine's Day" margin={30}  action={dispatch} type='occasion'/>
+                        <CustomInput v={formValue.occasion} name='occasion' placeholder="ex. valentine's Day" margin={30}  action={dispatch} type='occasion'/>
 
-                        <CustomInput name='promotion' placeholder='ex. 20% off'  margin={30}  action={dispatch} type='promotion'/>
+                        <CustomInput v={formValue.promotion} name='promotion' placeholder='ex. 20% off'  margin={30}  action={dispatch} type='promotion'/>
 
                     </div>    
                 }

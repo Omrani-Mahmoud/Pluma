@@ -32,6 +32,8 @@ const reducer =(state,action)=>{
                         return{...state,occasion:action.value};
                         case 'promotion':
                             return{...state,promotion:action.value};
+                            case 'reset':
+                                return action.value;
     
         default:
             return state;
@@ -56,6 +58,8 @@ function EmoAnglesForm({languages}) {
 
         let req = `${languages.input}/${formValue.desc}`
         
+        window.localStorage.setItem('oldInputs',JSON.stringify(formValue))
+
         axios.post(`${uri.link}/emotional/${req}`,body)
           .then(function (response) {
            
@@ -71,13 +75,18 @@ function EmoAnglesForm({languages}) {
           });
         }
 
+        React.useEffect(() => {
+            const inputs = JSON.parse(window.localStorage.getItem('oldInputs'))
+            dispatch({type:'reset',value:inputs})
+        }, [])
+
     return (
         <Grid item md={12} xs ={12} style={{padding:'20px'}}>
                 <section style={{background:'rgb(217,221,251)',padding:'10px',textAlign:'center'}}>
                     <span className='boldText' style={{textTransform:'uppercase',fontSize:'30px'}}>Emotional Angles</span>
                 </section>
                <div style={{background:'white',marginTop:'30px',padding:'20px',display:'flex',flexDirection:'column',justifyContent:'center'}}>
-              <CustomTextArea action={dispatch} type='desc'/>
+              <CustomTextArea v={formValue.desc} action={dispatch} type='desc'/>
                
                 {/* <input type="checkbox" id="scales" name="scales"
                         checked={checked} onChange={handleChange} />
