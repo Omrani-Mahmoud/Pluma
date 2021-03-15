@@ -293,15 +293,15 @@ setisProfileMenuOpen(null)
             <MenuIcon />
           </IconButton>
           <div style={{width:'100%',height:'85px',display:'flex',justifyContent:'flex-end'}}>
-            <section style={{width:'18%',flexDirection:'row',display:'flex',justifyContent:'flex-start',alignItems:'center'}}>
+            <section style={{width:'21%',flexDirection:'row',display:'flex',justifyContent:'flex-start',alignItems:'flex-start'}}>
                       <Avatar variant="square" src={logo} className={classes.logo_large} />
 
             </section>
-            <section style={{width:'12%',flexDirection:'row',display:'flex',justifyContent:'flex-start',alignItems:'center'}}>
+            <section style={{width:'15%',flexDirection:'row',display:'flex',justifyContent:'flex-start',alignItems:'center'}}>
                     
 
             </section>
-          <section style={{width:'15%',flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',color:'black',borderLeft:'2px solid rgb(246,246,246)'}}>
+          <section style={{width:'18%',flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',color:'black',borderLeft:'2px solid rgb(246,246,246)'}}>
                 <span style={{color:isInputMenuOpen?'#6A7BFF':'#202020',display:'flex',alignItems:'center',cursor:'pointer'}} onClick={handleInputMenuOpen}>Input Language
                 {
                     isInputMenuOpen?
@@ -332,7 +332,7 @@ setisProfileMenuOpen(null)
 
                     </Menu>
                 </section>
-                <section  style={{width:'15%',flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',color:'black',borderLeft:'2px solid rgb(246,246,246)'}}>
+                {/* <section  style={{width:'15%',flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',color:'black',borderLeft:'2px solid rgb(246,246,246)'}}>
                 <span style={{color:isOutputMenuOpen?'#6A7BFF':'#202020',display:'flex',alignItems:'center',cursor:'pointer'}} onClick={handleOutputMenuOpen}>Output Language
                 {
                     isOutputMenuOpen?
@@ -344,7 +344,7 @@ setisProfileMenuOpen(null)
                 </span>
 
                 <Menu
-                        // anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                         id={'profile_menu'}
                  
                         keepMounted
@@ -359,14 +359,14 @@ setisProfileMenuOpen(null)
                                 }
                                 )}
                        
-                        {/* <Divider variant="middle" /> */}
+                        <Divider variant="middle" />
 
                     </Menu>
-                </section>
-                <section   style={{width:'10%',flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',color:'#202020',borderLeft:'2px solid rgb(246,246,246)',cursor:'pointer'}}>
+                </section> */}
+                <section   style={{width:'13%',flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',color:'#202020',borderLeft:'2px solid rgb(246,246,246)',cursor:'pointer'}}>
                     <Link to='/home/favorite' style={{textDecoration:'none'}} whileHover={{ color: "#6A7BFF" }}  ><motion.span whileHover={{ color: "#6A7BFF" }} style={{color:'#202020'}}>Favorite List</motion.span></Link>
                 </section>
-                <section style={{width:'15%',flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',borderLeft:'2px solid rgb(246,246,246)'}}>
+                <section style={{width:'18%',flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',borderLeft:'2px solid rgb(246,246,246)'}}>
                 <span style={{color:'#6A7BFF',display:'flex',alignItems:'center',fontWeight:'bold',cursor:'pointer'}} onClick={handleMenuOpen}>{currentWorkspace.name}
                 {
                     isMenuOpen?
@@ -399,7 +399,7 @@ setisProfileMenuOpen(null)
                     </Menu>
 
                 </section>
-                <section style={{width:'15%',flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',borderLeft:'2px solid rgb(246,246,246)'}}>
+                <section style={{width:'18%',flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',borderLeft:'2px solid rgb(246,246,246)'}}>
                     <Avatar variant="square" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Felix_Cat-Haha.svg/1200px-Felix_Cat-Haha.svg.png" className={classes.large} />
                     <span style={{textTransform:'capitalize',color:isProfileMenu?'#6A7BFF':'#202020',display:'flex',alignItems:'center',cursor:'pointer'}} onClick={handleProfileMenuOpen}>
                         {_getuserName()}

@@ -17,11 +17,13 @@ function SideMenuButton({value,activePath,setter,yes}) {
         }))
     }
 
-
+//#6A7BFF
+//#c4c4c4
+//#4252d4
     return (
         <Link style={{textDecoration:'none',marginBottom:'13px'}} to={`/home${value.link}`} onClick={()=>{setter(value.link);setResults({...results,display:false});rs()}}>
             
-        <motion.span whileHover={{color:'#6A7BFF'}}  style={{cursor:'pointer',color:activePath===value.link?'#6A7BFF':'#c4c4c4',textAlign:'justify'}}>{value.name}</motion.span>
+        <motion.span whileHover={{color:'#2637c7'}}  style={{cursor:'pointer',color:activePath===value.link?'#2637c7':'#6A7BFF',textAlign:'justify'}}>{value.name}</motion.span>
         </Link>
 
     )
