@@ -7,7 +7,7 @@ class Auth{
         this.authenticated=false
     }
     
-    login(inputsValue,setter,cb){
+    login(inputsValue,setter,status,open,cb){
       axios({
         method:'POST',
         url:`${uri.link}/token/`,
@@ -19,10 +19,9 @@ class Auth{
         {
           setter(false)
           console.log('here token',res)
-
             if(res.data && res.data.token){
                 this.authenticated=true;
-                cb(res.data.token,res.data.ch_auth)
+                cb(res.data.token)
             }
           }
        
@@ -30,12 +29,14 @@ class Auth{
 
         .catch(err=>{
           setter(false)
-          console.log('error',err)
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: `${err.response.data.message && err.response.status===401 ? err.response.data.message:'Something went wrong!'}`,
-          })
+          console.log('error',err);
+          open(true);
+          status("error");
+          // Swal.fire({
+          //   icon: 'error',
+          //   title: 'Oops...',
+          //   text: `${err.response.data.message && err.response.status===401 ? err.response.data.message:'Something went wrong!'}`,
+          // })
        
         })
    
@@ -46,7 +47,7 @@ class Auth{
     logout(his){
       axios({ method: 'post',
               url:`${uri.link}/logout`,
-              headers: { 'auth-token': window.localStorage.getItem("erpT") } })
+              headers: { 'auth-token': window.localStorage.getItem('plumaT') } })
           .then(res=>{
 
             window.localStorage.setItem('erpT','expired');
@@ -60,7 +61,7 @@ class Auth{
 
     
     isAuthenticated(){
-    let token =window.localStorage.getItem('erpT');
+    let token =window.localStorage.getItem('plumaT');
     let user ={};
     let value = false;
     if(token!=='expired'){
@@ -69,6 +70,7 @@ class Auth{
    
     var current_time = Date.now() / 1000;
     if(user && Object.keys(user).length>0){
+      console.log('user here :::::>',user)
       if ( user.exp < current_time) 
           value = false;
       else

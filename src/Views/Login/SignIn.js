@@ -179,18 +179,12 @@ export default function SignIn(props) {
 
   const AuthHandler = () => {
     setloading(true);
-    // auth.login(userInfo,setloading,(token,ch)=>{
-    //     setToken(token);
-    //     console.log('DECODED__token:::',jwt.decode(token))
-    //     // history.push('/home');
-    //     if(ch)
-    //       history.push({pathname:'/home/profile',state:'new'});
-    //     else
-    //       history.push('/home');
-    // })
-    setOpenLogin(true);
-    setStatus("error");
-  };
+    auth.login(userInfo,setloading,setStatus,setOpenLogin,(token)=>{
+        setToken(token);
+        console.log('DECODED__token:::',jwt.decode(token))
+
+        
+    })};
 
   const _reset = () => {
     // axios.post(`${uri.link}/password_reset`, {
@@ -212,11 +206,11 @@ export default function SignIn(props) {
     setStatusResetPass("error");
   };
 
-  // React.useEffect(() => {
-  //   if(auth.isAuthenticated())
-  //       history.push('/home')
+  React.useEffect(() => {
+    if(auth.isAuthenticated())
+        history.push('/home')
 
-  // }, [])
+  }, [])
 
   console.log("USERR", _user, log);
 
