@@ -17,7 +17,8 @@ const initValue = {
     desc:'',
     target:'',
     occasion:'',
-    promotion:''
+    promotion:'',
+    keywords:[]
 }
 
 const reducer =(state,action)=>{
@@ -64,8 +65,8 @@ function EmoAnglesForm({languages}) {
           .then(function (response) {
            
             setloading(false);
-            if(response.data.data.length>0){
-                setResults({...results,data:response.data.data,display:true});
+            if(response.data.length>0){
+                setResults({...results,data:response.data,display:true});
             }
 
           })

@@ -29,6 +29,9 @@ function CustomCard({index,content}) {
        return display
     }
 
+
+    console.log('RES HERE',beautify())
+
     return (
         // <Paper elevation={0} square style={{height:'190px',marginBottom:'10px',padding:'10px'}}>
             
@@ -46,7 +49,7 @@ function CustomCard({index,content}) {
         //         </IconButton>
         //     </section>
         // </Paper>
-         <Paper elevation={0} square style={{height:'33vh',marginBottom:'10px',padding:'24px',width:'100%',marginRight:'15px'}}>
+         <Paper elevation={0} square style={{height:'33vh',marginBottom:'10px',padding:'24px',width:'100%',marginRight:'15px',borderRadius:'10px'}}>
             
          <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
              <div style={{height:'23vh'}}>

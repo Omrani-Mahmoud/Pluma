@@ -12,13 +12,16 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {uri} from '../../../Url_base';
 import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
 import {resultsState} from '../../../Atoms/Atoms'
+import { getActiveTone } from "../../../Selectors/TonesSelector";
+import VoiceToneList from '../../Voice tone/VoiceToneList';
 
 const initValue = {
     prod_name:'',
     desc:'',
     target:'',
     occasion:'',
-    promotion:''
+    promotion:'',
+    keywords:[]
 }
 
 const reducer =(state,action)=>{
@@ -46,6 +49,7 @@ function ListiclesForm({languages}) {
     const [checked, setchecked] = React.useState(false);
     const [results,setResults] = useRecoilState(resultsState);
     const [loading, setloading] = React.useState(false)
+    const activeTone = useRecoilValue(getActiveTone);
 
     const handleChange = (event) => {
         setchecked(event.target.checked);
@@ -57,9 +61,11 @@ function ListiclesForm({languages}) {
         let body = {
             inp:languages.input,
             description:formValue.desc,
+            tone:activeTone.type
+
         };
 
-        let req = `${languages.input}/${formValue.desc}`
+        let req = `${languages.input}/${formValue.desc}/${activeTone.type}`
         
         window.localStorage.setItem('oldInputs',JSON.stringify(formValue))
 
@@ -68,8 +74,8 @@ function ListiclesForm({languages}) {
           .then(function (response) {
            
             setloading(false);
-            if(response.data.data.length>0){
-              setResults({...results,data:response.data.data,display:true});
+            if(response.data.length>0){
+              setResults({...results,data:response.data,display:true});
           }
 
           })
@@ -95,7 +101,7 @@ function ListiclesForm({languages}) {
                <div style={{background:'white',marginTop:'30px',padding:'20px',display:'flex',flexDirection:'column',justifyContent:'center'}}>
 
               <CustomTextArea v={formValue.desc} action={dispatch} type='desc'/>
-            
+              <VoiceToneList />
                 {/* <input type="checkbox" id="scales" name="scales"
                         checked={checked} onChange={handleChange} />
                 <label for="scales">More options</label> */}

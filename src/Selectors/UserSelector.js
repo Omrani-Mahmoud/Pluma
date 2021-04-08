@@ -8,10 +8,16 @@ import {
 import {userState} from '../Atoms/Atoms'
 
 
+
 export const updateUser = selector({
-  key:'updateUser',
+  key:'getInformation',
   get:({get})=>{
+    let info = {};
     const user = get(userState);
-    return window.localStorage.getItem('erpT') 
+    info.fullname=user.fullname;
+    info.password=user.password;
+    info.email=user.email;
+
+    return info
   }
 })

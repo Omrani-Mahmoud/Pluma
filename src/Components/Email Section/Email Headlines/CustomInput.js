@@ -12,12 +12,10 @@ function CustomInput({name,placeholder,action,margin=10,type,v}) {
             action({type:type,value:e.target.value})
         }
     }
-
-    console.log('VLAUEE',v);
     return (
        <Grid item md={12} xs={12} style={{marginBottom:`${margin}px`}}>
             <span style={{fontSize:'18px',textTransform:'capitalize'}}>{name}</span>
-            <TextField error={hasError} helperText="Max input size is 30 character" fullWidth placeholder={placeholder} InputLabelProps={{shrink: true}} style={{marginTop:'5px'}} defaultValue={v.lenght>0?v:inputs[type]} onChange={(e)=>check_(e)}/>
+            <TextField inputProps={{maxLength:30}} error={hasError} helperText="Max input size is 30 character" fullWidth placeholder={placeholder} InputLabelProps={{shrink: true}} style={{marginTop:'5px'}} defaultValue={v.lenght>0?v:inputs[type]} onChange={(e)=>check_(e)}/>
        </Grid>
     )
 }

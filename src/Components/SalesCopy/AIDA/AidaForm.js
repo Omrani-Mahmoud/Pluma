@@ -11,6 +11,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {uri} from '../../../Url_base';
 import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
 import {resultsState} from '../../../Atoms/Atoms'
+import { getActiveTone } from "../../../Selectors/TonesSelector";
+import VoiceToneList from '../../Voice tone/VoiceToneList';
 
 
 const initValue = {
@@ -18,7 +20,8 @@ const initValue = {
     desc:'',
     target:'',
     occasion:'',
-    promotion:''
+    promotion:'',
+    keywords:[]
 }
 
 const reducer =(state,action)=>{
@@ -46,6 +49,7 @@ function AidaForm({languages}) {
     const [formValue, dispatch] = React.useReducer(reducer, initValue);
     const [checked, setchecked] = React.useState(false);
     const [results,setResults] = useRecoilState(resultsState);
+    const activeTone = useRecoilValue(getActiveTone);
 
     const handleChange = (event) => {
         setchecked(event.target.checked);
@@ -57,9 +61,10 @@ function AidaForm({languages}) {
             inp:languages.input,
             prod_name:formValue.prod_name,
             description:formValue.desc,
+            tone:activeTone.type
         };
 
-        let req = `${languages.input}/${formValue.prod_name}/${formValue.desc}`
+        let req = `${languages.input}/${formValue.prod_name}/${formValue.desc}/${activeTone.type}`
         
         if(formValue.target.length>0)
             req = `${req}/${formValue.target}`
@@ -86,8 +91,8 @@ function AidaForm({languages}) {
            
             setloading(false);
             // setResults({...results,});
-            if(response.data.data.length>0){
-                setResults({...results,data:response.data.data,display:true});
+            if(response.data.length>0){
+                setResults({...results,data:response.data,display:true});
             }
             // window.localStorage.setItem('oldInputs',JSON.stringify(formValue))
 
@@ -108,7 +113,7 @@ function AidaForm({languages}) {
     return (
         <Grid item md={12} xs ={12} style={{padding:'20px'}}>
                 <section style={{background:'rgb(217,221,251)',padding:'10px',textAlign:'center'}}>
-                    <span className='boldText' style={{textTransform:'uppercase',fontSize:'30px'}}>AIDA's</span>
+                    <span className='boldText' style={{textTransform:'uppercase',fontSize:'30px'}}>AIDA</span>
                 </section>
                <div style={{background:'white',marginTop:'30px',padding:'20px',display:'flex',flexDirection:'column',justifyContent:'center'}}>
               <CustomInput v={formValue.prod_name} name='product name' placeholder='product name' action={dispatch} type='prod_name' />
@@ -120,6 +125,8 @@ function AidaForm({languages}) {
                     className='salma'
                     style={{marginTop:'20px',color:'#C4C4C4',marginBottom:'10px'}}
                 />
+                              <VoiceToneList />
+
                 {/* <input type="checkbox" id="scales" name="scales"
                         checked={checked} onChange={handleChange} />
                 <label for="scales">More options</label> */}

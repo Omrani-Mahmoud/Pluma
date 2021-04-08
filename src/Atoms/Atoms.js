@@ -10,7 +10,7 @@ import {
 
   export const userState = atom({
     key: 'userState',
-    default: {fullname:'mahmoud Omrani',email:'omrani@omrani.com'},
+    default: {fullname:'mahmoud Omrani',email:'omrani@omrani.com',plan:'Lifetime'},
   });
 
 
@@ -38,4 +38,8 @@ import {
     default: {display:false,data:[]},
   });
 
+  export const voiceToneState = atom({
+    key: 'voiceToneState',
+    default: [{type:'professional',isActive:false},{type:'bold',isActive:false},{type:'adventurous',isActive:false},{type:'friendly',isActive:false},{type:'luxury',isActive:false},{type:'no tone',isActive:true}]
+  });
 

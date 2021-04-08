@@ -55,6 +55,14 @@ import PASForm from '../SalesCopy/Pain agitate solution/PASForm';
 import PPPForm from '../SalesCopy/Problem promise proof/PPPForm';
 import BlogIntroForm from '../WebsitesCopy/BlogIntro/BlogIntroForm';
 import ListiclesForm from '../WebsitesCopy/Listicles/ListiclesForm';
+import BlogPostForm from '../SEO/BlogPosts/BlogPostForm';
+import HomePageForm from '../SEO/HomePage/HomePageForm';
+import ProductPageForm from '../SEO/ProductPage/ProductPageForm';
+import ServicePageForm from '../SEO/ServicesPage/ServicePageForm';
+import ContentImproverForm from '../WebsitesCopy/ContentImprover/ContentImproverForm';
+import SentenceExpanderForm from '../WebsitesCopy/SentenceExpander/SentenceExpanderForm';
+import InstagramCaptionForm from '../Social ADS/InstagramCaptions/InstagramCaptionForm';
+import ValuePropositionForm from '../Brainstorming/Value proposition/ValuePropositionForm';
 
 const drawerWidth = 240;
 
@@ -278,6 +286,9 @@ setisProfileMenuOpen(null)
       let name = user.fullname.split(' ');
       return `${name[0]}.${name[1][0]}`
   }
+
+
+  console.log('here results',resultsStatus)
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -518,6 +529,15 @@ setisProfileMenuOpen(null)
                                 <Route path='/home/Ppp' component={()=> <PPPForm languages={activeLanguages} />}/>
                                 <Route path='/home/blogIntro' component={()=> <BlogIntroForm languages={activeLanguages} />}/>
                                 <Route path='/home/listicles' component={()=> <ListiclesForm languages={activeLanguages} />}/>
+                                <Route path='/home/blogPost' component={()=> <BlogPostForm languages={activeLanguages} />}/>
+                                <Route path='/home/homePage' component={()=> <HomePageForm languages={activeLanguages} />}/>
+                                <Route path='/home/productPage' component={()=> <ProductPageForm languages={activeLanguages} />}/>
+                                <Route path='/home/servicesPage' component={()=> <ServicePageForm languages={activeLanguages} />}/>
+                                <Route path='/home/contentImprover' component={()=> <ContentImproverForm languages={activeLanguages} />}/>
+                                <Route path='/home/sentenceExpander' component={()=> <SentenceExpanderForm languages={activeLanguages} />}/>
+                                <Route path='/home/instagramCaption' component={()=> <InstagramCaptionForm languages={activeLanguages} />}/>
+                                <Route path='/home/valueProposition' component={()=> <ValuePropositionForm languages={activeLanguages} />}/>
+
 
 
 

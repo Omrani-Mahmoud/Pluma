@@ -12,13 +12,16 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {uri} from '../../../Url_base';
 import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
 import {resultsState} from '../../../Atoms/Atoms'
+import { getActiveTone } from "../../../Selectors/TonesSelector";
+import VoiceToneList from '../../Voice tone/VoiceToneList';
 
 const initValue = {
     prod_name:'',
     desc:'',
     target:'',
     occasion:'',
-    promotion:''
+    promotion:'',
+    keywords:[]
 }
 
 const reducer =(state,action)=>{
@@ -46,6 +49,7 @@ function BlogIntroForm({languages}) {
     const [checked, setchecked] = React.useState(false);
     const [results,setResults] = useRecoilState(resultsState);
     const [loading, setloading] = React.useState(false)
+    const activeTone = useRecoilValue(getActiveTone);
 
     const handleChange = (event) => {
         setchecked(event.target.checked);
@@ -57,9 +61,11 @@ function BlogIntroForm({languages}) {
             inp:languages.input,
             prod_name:formValue.prod_name,
             description:formValue.desc,
+            tone:activeTone.type
+
         };
 
-        let req = `${languages.input}/${formValue.prod_name}/${formValue.desc}`
+        let req = `${languages.input}/${formValue.prod_name}/${formValue.desc}/${activeTone.type}`
         
         if(formValue.target.length>0)
             req = `${req}/${formValue.target}`
@@ -84,8 +90,8 @@ function BlogIntroForm({languages}) {
         axios.post(`${uri.link}/blog/${req}`,body)
           .then(function (response) {
             setloading(false);
-            if(response.data.data.length>0){
-                setResults({...results,data:response.data.data,display:true});
+            if(response.data.length>0){
+                setResults({...results,data:response.data,display:true});
             }
 
           })
@@ -110,7 +116,7 @@ function BlogIntroForm({languages}) {
               <CustomInput v={formValue.prod_name} name='product name' placeholder='product name' action={dispatch} type='prod_name' />
 
               <CustomTextArea v={formValue.desc} action={dispatch} type='desc'/>
-            
+              <VoiceToneList />
                 {/* <input type="checkbox" id="scales" name="scales"
                         checked={checked} onChange={handleChange} />
                 <label for="scales">More options</label> */}

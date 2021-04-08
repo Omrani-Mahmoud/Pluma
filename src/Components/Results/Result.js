@@ -97,9 +97,12 @@ const _addPage = ()=>{
         <Grid item md={12} xs ={12} style={{padding:'20px',height:'100%'}}>
        <div style={{background:'white',marginTop:'0px',padding:'5px',display:'flex',flexDirection:'column',background:'rgb(245,246,250)'}}>
             {
-                results.data && results.data.map((elem,index)=>{
+                results.data && typeof results.data=='object' ?
+                results.data.map((elem,index)=>{
                     return <CustomCard index={index+1} content={elem} />
                 })
+                :
+                <span style={{color:'white',fontWeight:'bold',fontSize:'15px',background:'#ff0033',padding:'10px',textAlign:'center'}}>{results.data}</span>
             }
             {/* <Pagination count={pagesCount} shape="rounded"  style={{alignSelf:'center'}} onChange={(e,page)=>{handlePageChange(page)}} page={page}/> */}
             {/* <nav>

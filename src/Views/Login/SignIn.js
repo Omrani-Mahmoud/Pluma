@@ -212,7 +212,7 @@ export default function SignIn(props) {
 
   }, [])
 
-  console.log("USERR", _user, log);
+  console.log("USERR", _user);
 
   return (
     <Grid container component="main" className={classes.root}>
