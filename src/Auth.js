@@ -1,7 +1,8 @@
 import Swal from 'sweetalert2'
 import {uri} from "./Url_base";
 import axios from "axios";
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
+import qs from 'qs';
 class Auth{
     constructor(){
         this.authenticated=false
@@ -10,18 +11,22 @@ class Auth{
     login(inputsValue,setter,status,open,cb){
       axios({
         method:'POST',
-        url:`${uri.link}/token/`,
-        data:inputsValue,
+        url:`${uri.link}/login`,
+        data:qs.stringify(inputsValue),
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+        }
       })
+      
       .then(res=>{
       
         if(res.status===200)
         {
           setter(false)
-          console.log('here token',res)
-            if(res.data && res.data.token){
+          console.log('here token',res.data.access_token)
+            if(res.data && res.data.access_token){
                 this.authenticated=true;
-                cb(res.data.token)
+                cb(res.data.access_token)
             }
           }
        

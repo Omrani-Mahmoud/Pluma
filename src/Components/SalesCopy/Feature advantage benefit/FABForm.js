@@ -12,6 +12,7 @@ import {resultsState} from '../../../Atoms/Atoms'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { getActiveTone } from "../../../Selectors/TonesSelector";
 import VoiceToneList from '../../Voice tone/VoiceToneList';
+import {getToken} from '../../../Selectors/TokenSelector'
 
 const initValue = {
     prod_name:'',
@@ -48,6 +49,7 @@ function FABForm({languages}) {
     const [results,setResults] = useRecoilState(resultsState);
     const [loading, setloading] = React.useState(false)
     const activeTone = useRecoilValue(getActiveTone);
+    const authToken = useRecoilValue(getToken);
 
     const handleChange = (event) => {
         setchecked(event.target.checked);
@@ -85,7 +87,9 @@ function FABForm({languages}) {
 
             window.localStorage.setItem('oldInputs',JSON.stringify(formValue))
 
-        axios.post(`${uri.link}/fab/${req}`,body)
+        axios.post(`${uri.link}/fab/${req}`,body,{headers: 
+            {Authorization: 'Bearer ' + authToken}
+         })
           .then(function (response) {
            
             setloading(false);

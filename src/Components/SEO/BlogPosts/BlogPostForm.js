@@ -12,6 +12,7 @@ import {uri} from '../../../Url_base';
 import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
 import {resultsState} from '../../../Atoms/Atoms'
 import MultiInputs from '../Shared/custom Multiinputs/MultiInputs';
+import {getToken} from '../../../Selectors/TokenSelector'
 
 const initValue = {
     prod_name:'',
@@ -64,6 +65,7 @@ function BlogPostForm({languages}) {
     const [formValue, dispatch] = React.useReducer(reducer, initValue);
     const [checked, setchecked] = React.useState(false);
     const [results,setResults] = useRecoilState(resultsState);
+    const authToken = useRecoilValue(getToken);
 
     const handleChange = (event) => {
         setchecked(event.target.checked);
@@ -105,7 +107,9 @@ function BlogPostForm({languages}) {
 
             window.localStorage.setItem('oldInputs',JSON.stringify(formValue))
 
-        axios.post(`${uri.link}/seo_blog/${req}`,body)
+        axios.post(`${uri.link}/seo_blog/${req}`,body,{headers: 
+                    {Authorization: 'Bearer ' + authToken}
+                 })
           .then(function (response) {
            
             setloading(false);

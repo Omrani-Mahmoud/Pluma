@@ -10,6 +10,7 @@ import {uri} from '../../../Url_base';
 import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
 import {resultsState} from '../../../Atoms/Atoms'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import {getToken} from '../../../Selectors/TokenSelector'
 
 const initValue = {
     prod_name:'',
@@ -45,6 +46,7 @@ function FunctionalBenefitForm({languages}) {
     const [checked, setchecked] = React.useState(false);
     const [results,setResults] = useRecoilState(resultsState);
     const [loading, setloading] = React.useState(false)
+    const authToken = useRecoilValue(getToken);
 
     const handleChange = (event) => {
         setchecked(event.target.checked);
@@ -62,7 +64,10 @@ function FunctionalBenefitForm({languages}) {
         
         window.localStorage.setItem('oldInputs',JSON.stringify(formValue))
 
-        axios.post(`${uri.link}/functional/${req}`,body)
+        axios.post(`${uri.link}/functional/${req}`,body,
+        {headers: 
+                    {Authorization: 'Bearer ' + authToken}
+                 })
           .then(function (response) {
            
             setloading(false);

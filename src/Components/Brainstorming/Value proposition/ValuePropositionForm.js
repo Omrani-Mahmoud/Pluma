@@ -13,6 +13,7 @@ import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
 import {resultsState} from '../../../Atoms/Atoms'
 import { getActiveTone } from "../../../Selectors/TonesSelector";
 import VoiceToneList from '../../Voice tone/VoiceToneList';
+import {getToken} from '../../../Selectors/TokenSelector'
 
 
 const initValue = {
@@ -50,6 +51,7 @@ function ValuePropositionForm({languages}) {
     const [checked, setchecked] = React.useState(false);
     const [results,setResults] = useRecoilState(resultsState);
     const activeTone = useRecoilValue(getActiveTone);
+    const authToken = useRecoilValue(getToken);
 
     const handleChange = (event) => {
         setchecked(event.target.checked);
@@ -84,7 +86,10 @@ function ValuePropositionForm({languages}) {
 
             window.localStorage.setItem('oldInputs',JSON.stringify(formValue))
 
-        axios.post(`${uri.link}/ideas/${req}`,body)
+        axios.post(`${uri.link}/ideas/${req}`,body,{headers: 
+            {Authorization: 'Bearer ' + authToken}
+         }
+)
           .then(function (response) {
            
             setloading(false);

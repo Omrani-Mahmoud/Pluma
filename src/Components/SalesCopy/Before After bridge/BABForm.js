@@ -12,6 +12,7 @@ import {resultsState} from '../../../Atoms/Atoms'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import VoiceToneList from '../../Voice tone/VoiceToneList';
 import { getActiveTone } from "../../../Selectors/TonesSelector";
+import {getToken} from '../../../Selectors/TokenSelector'
 
 const initValue = {
     prod_name:'',
@@ -48,6 +49,7 @@ function BABForm({languages}) {
     const [checked, setchecked] = React.useState(false);
     const [results,setResults] = useRecoilState(resultsState);
     const activeTone = useRecoilValue(getActiveTone);
+    const authToken = useRecoilValue(getToken);
 
     const handleChange = (event) => {
         setchecked(event.target.checked);
@@ -86,7 +88,9 @@ function BABForm({languages}) {
 
             window.localStorage.setItem('oldInputs',JSON.stringify(formValue))
 
-        axios.post(`${uri.link}/bridge/${req}`,body)
+        axios.post(`${uri.link}/bridge/${req}`,body,{headers: 
+            {Authorization: 'Bearer ' + authToken}
+         })
           .then(function (response) {
            
             setloading(false);

@@ -63,6 +63,7 @@ import ContentImproverForm from '../WebsitesCopy/ContentImprover/ContentImprover
 import SentenceExpanderForm from '../WebsitesCopy/SentenceExpander/SentenceExpanderForm';
 import InstagramCaptionForm from '../Social ADS/InstagramCaptions/InstagramCaptionForm';
 import ValuePropositionForm from '../Brainstorming/Value proposition/ValuePropositionForm';
+import useDecodeToken from '../../Hooks/useDecodeToken'
 
 const drawerWidth = 240;
 
@@ -157,14 +158,13 @@ function CustomTopBar(props) {
   const [languages,setLanguages] = useRecoilState(languagesState);
   const [resultsStatus,setResultsStatus] = useRecoilState(resultsState);
 
+  const decodedToken = useDecodeToken();
 
   const [activeLanguages,setActiveLanguages] = React.useState({
       input:'English',
       output:'English'
   });
 
-
-  console.log(location.pathname)
 
   const handleWorkeSpaces = (v)=>{
       let wrong = [];
@@ -283,8 +283,7 @@ setisProfileMenuOpen(null)
   const container = window !== undefined ? () => window().document.body : undefined;
 
   const _getuserName = ()=>{
-      let name = user.fullname.split(' ');
-      return `${name[0]}.${name[1][0]}`
+      return `${decodedToken.first_name}.${decodedToken.last_name[0]}`
   }
 
 

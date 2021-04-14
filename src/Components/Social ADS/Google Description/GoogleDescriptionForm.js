@@ -14,6 +14,7 @@ import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
 import {resultsState} from '../../../Atoms/Atoms'
 import { getActiveTone } from "../../../Selectors/TonesSelector";
 import VoiceToneList from '../../Voice tone/VoiceToneList';
+import {getToken} from '../../../Selectors/TokenSelector'
 
 
 const initValue = {
@@ -51,6 +52,7 @@ function GoogleDescriptionForm({languages}) {
     const [results,setResults] = useRecoilState(resultsState);
     const [loading, setloading] = React.useState(false);
     const activeTone = useRecoilValue(getActiveTone);
+    const authToken = useRecoilValue(getToken);
 
 
     const handleChange = (event) => {
@@ -89,7 +91,10 @@ function GoogleDescriptionForm({languages}) {
 
             window.localStorage.setItem('oldInputs',JSON.stringify(formValue))
 
-        axios.post(`${uri.link}/googdescript/${req}`,body)
+        axios.post(`${uri.link}/googdescript/${req}`,body,{headers: 
+            {Authorization: 'Bearer ' + authToken}
+         }
+)
           .then(function (response) {
            
             setloading(false);

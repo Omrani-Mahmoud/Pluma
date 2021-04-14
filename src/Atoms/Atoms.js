@@ -13,6 +13,11 @@ import {
     default: {fullname:'mahmoud Omrani',email:'omrani@omrani.com',plan:'Lifetime'},
   });
 
+  export const tokenState = atom({
+    key: 'tokenState',
+    default: {token:''},
+  });
+
 
 
   export const workSpaceState = atom({

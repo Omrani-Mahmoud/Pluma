@@ -35,7 +35,7 @@ import {
   useRecoilValue,
 } from "recoil";
 
-import { userState } from "../../Atoms/Atoms";
+import { userState,tokenState } from "../../Atoms/Atoms";
 import { updateUser } from "../../Selectors/UserSelector";
 
 import alpha_a from "../../Assets/img/Angle_C4/a2_0003.png";
@@ -65,14 +65,14 @@ import {
 } from "./AlphaAnimation";
 
 const initialState = {
-  username: "",
+  email: "",
   password: "",
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "userName":
-      return { ...state, username: action.value };
+      return { ...state, email: action.value };
     case "password":
       return { ...state, password: action.value };
 
@@ -147,6 +147,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn(props) {
   const [_user, _setUser] = useRecoilState(userState);
+  const [_token, _setToken] = useRecoilState(tokenState);
+
   const log = useRecoilValue(updateUser);
 
   const sideMenuVariant = {
@@ -180,10 +182,9 @@ export default function SignIn(props) {
   const AuthHandler = () => {
     setloading(true);
     auth.login(userInfo,setloading,setStatus,setOpenLogin,(token)=>{
-        setToken(token);
-        console.log('DECODED__token:::',jwt.decode(token))
-
-        
+        _setToken(token);
+        window.localStorage.setItem('plumaT',token);
+        history.push('/home')
     })};
 
   const _reset = () => {

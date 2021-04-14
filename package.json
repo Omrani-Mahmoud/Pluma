@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "framer-motion": "^3.3.0",
     "jsonwebtoken": "^8.5.1",
+    "qs": "^6.10.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
