@@ -8,7 +8,7 @@ import auth from './Auth'
     return (
         <Route  {...rest} render={
             (props)=>{
-                auth.isAuthenticated();
+                console.log('zebii',auth.isAuthenticated());
                 if(auth.isAuthenticated())
                     return <Component {...props}/>
                 else{

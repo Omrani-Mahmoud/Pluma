@@ -13,6 +13,12 @@
   width: 6px;
 }
 
+textarea:focus{
+  outline: none !important;
+  border:1px solid #D9DDFB;
+  border-radius: 3px;
+}
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
   -webkit-border-radius: 10px;

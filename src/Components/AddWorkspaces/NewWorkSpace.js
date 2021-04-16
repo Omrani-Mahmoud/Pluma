@@ -6,7 +6,7 @@ import { Badge, Divider, Grid, IconButton, TextField } from '@material-ui/core'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 // import SaveIcon from '@material-ui/icons/Save';
 
-function NewWorkSpace({push_new,isNewSetter}) {
+function NewWorkSpace({push_new,isNewSetter,addWorkspace}) {
 
 
     //const [edit, setedit] = React.useState(false);
@@ -25,8 +25,11 @@ function NewWorkSpace({push_new,isNewSetter}) {
 
     const save_edit= ()=>{
         if(inputValue.length>0){
-            push_new(inputValue)
+            // push_new(inputValue)
+            addWorkspace(inputValue)
             setinputValue('');
+            isNewSetter(false)
+
         }
         else 
             seterror(true)

@@ -13,6 +13,7 @@ import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
 import {resultsState} from '../../../Atoms/Atoms'
 import MultiInputs from '../Shared/custom Multiinputs/MultiInputs';
 import {getToken} from '../../../Selectors/TokenSelector'
+import CustomSnackbar from "../../../Components/SnackBars/CustomSnackBar";
 
 const initValue = {
     prod_name:'',
@@ -66,16 +67,33 @@ function HomePageForm({languages}) {
     const [checked, setchecked] = React.useState(false);
     const [results,setResults] = useRecoilState(resultsState);
     const authToken = useRecoilValue(getToken);
+    const [open, setOpen] = React.useState(false);
 
     const handleChange = (event) => {
         setchecked(event.target.checked);
       };
 
+      const checkInputs =()=>{
+  
+        if(formValue.prod_name?.length<=0)
+            return  true
+            if(formValue.desc?.length<=0)
+               return  true
+                    if(formValue.keywords?.length<=0)
+                       return  true
+        
+  }
+
     const _getResults = ()=>{
+        const isError = checkInputs();
+        if(isError){
+            setOpen(true)
+        }
+        else{
         setloading(true);
         let keywords_strings = '';
         formValue.keywords.map(keyword =>{
-            keywords_strings=keyword+',';
+            keywords_strings=keyword+','+keywords_strings;
         })
         let body = {
             inp:languages.input,
@@ -125,14 +143,23 @@ function HomePageForm({languages}) {
             console.log(error);
           });
         }
+    }
 
 
         React.useEffect(() => {
-            // if(window.localStorage.getItem('oldInputs')){
-            //     const inputs = JSON.parse(window.localStorage.getItem('oldInputs'))
-            //     dispatch({type:'reset',value:inputs})
-            // }
-            // else{
+            if(window.localStorage.getItem('oldInputs')){
+                const inputs = JSON.parse(window.localStorage.getItem('oldInputs'))
+                dispatch({type:'reset',value:{
+                    prod_name:inputs.prod_name,
+                    desc:inputs.desc,
+                    target:'',
+                    occasion:'',
+                    promotion:'',
+                    title:'',
+                    keywords:inputs.keywords?inputs.keywords:[]
+                }})
+            }
+            else{
                 dispatch({type:'reset',value:{
                     prod_name:'',
                     desc:'',
@@ -142,13 +169,19 @@ function HomePageForm({languages}) {
                     title:'',
                     keywords:[]
                 }})
-            // }
+             }
         }, [])
 
 
     return (
         <Grid item md={12} xs ={12} style={{padding:'20px'}}>
-                <section style={{background:'rgb(217,221,251)',padding:'10px',textAlign:'center'}}>
+            <CustomSnackbar
+                    setter={setOpen}
+                    open={open}
+                    content="Ops, all inputs are required !"
+                    type="error"
+                />
+                <section style={{background:'rgb(217,221,251)',padding:'10px',textAlign:'center',borderRadius:'10px'}}>
                     <span className='boldText' style={{textTransform:'uppercase',fontSize:'30px'}}>Home Page</span>
                 </section>
                <div style={{background:'white',marginTop:'30px',padding:'20px',display:'flex',flexDirection:'column',justifyContent:'center'}}>
@@ -184,7 +217,7 @@ function HomePageForm({languages}) {
                     <CircularProgress size={24} style={{alignSelf:'center',marginTop:'35px'}}/>
                     :
                     <Button
-                    style={{background:'#6A7BFF',color:'white',marginTop:'20px',borderRadius:'0px'}}
+                    style={{background:'#6A7BFF',color:'white',marginTop:'20px',borderRadius:'0px',borderRadius:'20px'}}
                     fullWidth
                     variant="contained"
                     onClick={()=>_getResults()}

@@ -10,6 +10,7 @@ import ProtectedRoute from './ProtectedRoute'
 const history = createBrowserHistory();
 
 function App() {
+  console.log('ghere rechresh on app.js')
   return (
     <BrowserRouter>
       <RecoilRoot>

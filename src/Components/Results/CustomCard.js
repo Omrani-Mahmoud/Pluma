@@ -12,8 +12,63 @@ import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import {ReactComponent as DeleteIcon} from '../../Assets/Icons/svg/fi-rs-trash.svg';
 import {ReactComponent as DownloadIcon} from '../../Assets/Icons/svg/fi-rs-download.svg';
 import {ReactComponent as HeartIcon} from '../../Assets/Icons/svg/fi-rs-bookmark.svg';
+import {activeWorkspace} from '../../Selectors/WorkspaceSelector'
+import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
+import axios from 'axios';
+import qs from 'qs';
+import {uri} from "../../Url_base";
+import {getToken} from '../../Selectors/TokenSelector'
+import Swal from 'sweetalert2'
+import { tokenState,favoritesState } from "../../Atoms/Atoms";
+import jwt from 'jsonwebtoken'
+import CustomSnackbar from '../SnackBars/CustomSnackBar';
 
 function CustomCard({index,content}) {
+    const currentWorkspace= useRecoilValue(activeWorkspace);
+    const authToken = useRecoilValue(getToken);
+    const [_token, _setToken] = useRecoilState(tokenState);
+    const [_favorites, _setFavorites] = useRecoilState(favoritesState);
+
+    const [open, setOpen] = React.useState(false);
+    const [status, setStatus] = React.useState("");
+
+    const _addToFav = (value) =>{
+        //if error on value type try to aprse it 
+        const bodyy  = {content:value,w_id:currentWorkspace.id};
+        axios({
+            method:'POST',
+            url:`${uri.link}/favorites/${value}/${currentWorkspace.id}`,
+            data:qs.stringify(bodyy),
+            headers: {
+                Authorization: 'Bearer ' + authToken
+            }
+          })
+          
+          .then(res=>{
+            setOpen(true)
+            if(res.status===200)
+            {
+              if(res.data){
+                setStatus(200)
+                _setToken({token:res.data});
+                _setFavorites(jwt.decode(res.data).favorites)
+                window.localStorage.setItem('plumaT',res.data)
+  
+              }
+              setStatus('error')
+            }
+          
+          })
+    
+            .catch(err=>{
+              console.log('error',err);
+              setStatus('error')
+           
+            })
+        console.log('active workspace here',currentWorkspace,value)
+      }
+
+
     const [hoverIcons, sethoverIcons] = React.useState({heart:false,download:false});
 
     const styleDelete={width:20,height:24,fill:hoverIcons.heart?'#6A7BFF':'#D9DDFB',marginRight:15,transition:'0.5s',cursor:'pointer'};
@@ -28,29 +83,28 @@ function CustomCard({index,content}) {
        })
        return display
     }
-
-
-    console.log('RES HERE',beautify())
-
     return (
-        // <Paper elevation={0} square style={{height:'190px',marginBottom:'10px',padding:'10px'}}>
-            
-        //     <span><b style={{fontSize:'18px'}}>{`Result${index}`}</b></span>
-        //     <Grid item md ={12} style={{overflowY:'auto',height:'100px'}}>
-        //     <p style={{display:'inline-block',wordWrap:'break-word',whiteSpace:'initial',overflowWrap:"break-word"}}>{content}</p>
-        //     </Grid>
-        //     <Divider variant="middle" />
-        //     <section style={{float:'right',padding:'10px'}}>
-        //         <IconButton size='small' aria-label="upload picture" component="span" style={{marginRight:'10px'}}>
-        //             <SaveAltIcon fontSize="small" style={{color:'#6A7BFF'}}/>
-        //         </IconButton>
-        //         <IconButton size='small'  aria-label="upload picture" component="span">
-        //             <FavoriteIcon fontSize="small" style={{color:'#6A7BFF'}} />
-        //         </IconButton>
-        //     </section>
-        // </Paper>
+       
          <Paper elevation={0} square style={{height:'33vh',marginBottom:'10px',padding:'24px',width:'100%',marginRight:'15px',borderRadius:'10px'}}>
             
+            {
+              status === 'error' ?
+                <CustomSnackbar
+                    setter={setOpen}
+                    open={open}
+                    content="Ops, Something Wrong!"
+                    type="error"
+                />
+              :
+              <CustomSnackbar
+                  setter={setOpen}
+                  open={open}
+                  content="This text has been added to your favorite list !"
+                  type="success"
+              />
+            }
+
+
          <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
              <div style={{height:'23vh'}}>
              <span><b style={{fontSize:'18px',marginLeft:'10px',fontWeight:'bold'}}>{`Result ${index}`}</b></span>
@@ -70,7 +124,7 @@ function CustomCard({index,content}) {
                      <DownloadIcon  style={styleDonwload} onMouseEnter={()=>sethoverIcons({...hoverIcons,download:true})} onMouseLeave={()=>sethoverIcons({...hoverIcons,download:false})} />
 
                
-                     <HeartIcon  style={styleDelete} onMouseEnter={()=>sethoverIcons({...hoverIcons,heart:true})} onMouseLeave={()=>sethoverIcons({...hoverIcons,heart:false})}/>
+                     <HeartIcon onClick={()=>_addToFav(beautify()[0].props.children)} style={styleDelete} onMouseEnter={()=>sethoverIcons({...hoverIcons,heart:true})} onMouseLeave={()=>sethoverIcons({...hoverIcons,heart:false})}/>
          
              </section>
          </div> 

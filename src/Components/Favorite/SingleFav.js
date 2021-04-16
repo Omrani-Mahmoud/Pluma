@@ -11,7 +11,7 @@ import {motion} from 'framer-motion'
 function SingleFav({index,content}) {
     const [edit, setedit] = React.useState(false);
     const [hoverIcons, sethoverIcons] = React.useState({delete:false,download:false,edit:false});
-    const [inputValue, setinputValue] = React.useState('Favorite');
+    const [inputValue, setinputValue] = React.useState(`Favorite ${index+1}`);
 
 
     const styleDelete={width:20,height:24,fill:hoverIcons.delete?'#6A7BFF':'#D9DDFB',marginRight:15,transition:'0.5s',cursor:'pointer'};
@@ -37,7 +37,7 @@ function SingleFav({index,content}) {
                         </div>
                         :
                         <div>
-                        <span><b style={{fontSize:'18px',marginLeft:'10px',fontWeight:'bold'}}>{`Favorite`}</b></span>
+                        <span><b style={{fontSize:'18px',marginLeft:'10px',fontWeight:'bold'}}>{`Favorite ${index+1}`}</b></span>
                         <EditIcon onClick={()=>setedit(true)}  style={styleEdit} onMouseEnter={()=>sethoverIcons({...hoverIcons,edit:true})} onMouseLeave={()=>sethoverIcons({...hoverIcons,edit:false})}/>
 
                         </div>

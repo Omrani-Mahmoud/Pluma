@@ -1,37 +1,29 @@
 import { Container } from '@material-ui/core'
 import React from 'react'
 import Favorite from './Favorite'
+import {useRecoilState,useRecoilValue,} from "recoil";
+import { tokenState,favoritesState } from "../../Atoms/Atoms";
+import {getToken} from '../../Selectors/TokenSelector'
+import {activeWorkspaceFavorites} from '../../Selectors/FavoritesSelector'
+import {activeWorkspace} from '../../Selectors/WorkspaceSelector'
 
 function FavoriteContainer() {
 
 
-    const data = [
-        { 
-            content:'ahahahhahahha hahahhaahah ahhahahhaha hahhaahahahhahahhahah ahhaahahahhahahhaha ahahhahahhahahah haahahahhahahhah ahahha hahhaahahahhahahhahah ahhaahahahhahahhaha ahahhahahhahahah hahhaahahahhahahhahah ahhaahahahhahahhaha ahahhahahhahahah hahhaahahahhahahhahah ahhaahahahhahahhaha ahahhahahhahahah 1'
-        },
-        {
-            content:'hohoohohoh hohoohohoh hohoohohohhohoohohoh hohoohohohhohoohohohhoho ohohohhohoohohoh hohoohoh ohhohoohohohhohoohohoh 2'
-        },
-        {
-            content:'hehehehehehe hehehehehehe heheheheheheheheheh ehehehehehehehehe 3'
-        },
-        { 
-            content:'ahahahhahahha hahahhaahah ahhahahhaha hahhaahahahhahahhahah ahhaahahahhahahhaha hahhaahahahhahahhahahahha ahahahhahahhahahahhaah ahahhahahhahahah haahahahhahahhah ahahha 4'
-        },
-        {
-            content:'hohoohohoh hohoohohoh hohoohohohhohoohohoh hohoohohohhohoohohohhoho ohohohhohoohohoh hohoohoh ohhohoohohohhohoohohoh 5'
-        },
-        {
-            content:'hehehehehehe hehehehehehe heheheheheheheheheh ehehehehehehehehe 6'
-        },
-        {
-            content:'hehehehehehe hehehehehehe heheheheheheheheheh ehehehehehehehehe 7'
-        }
-    ]
+    const currentWorkspace= useRecoilValue(activeWorkspace);
+    const authToken = useRecoilValue(getToken);
+    const favoriteList = useRecoilValue(activeWorkspaceFavorites(currentWorkspace.id));
+
+    const [_token, _setToken] = useRecoilState(tokenState);
+    const [_favorites, _setFavorites] = useRecoilState(favoritesState);
+
+console.log('fav list',favoriteList)
+
+
 
 
     return (
-        <Favorite data={data} />
+        <Favorite data={favoriteList} />
     )
 }
 

@@ -8,7 +8,7 @@ class Auth{
         this.authenticated=false
     }
     
-    login(inputsValue,setter,status,open,cb){
+    login(inputsValue,setter,status,open,seterror_msg,cb){
       axios({
         method:'POST',
         url:`${uri.link}/login`,
@@ -27,6 +27,12 @@ class Auth{
             if(res.data && res.data.access_token){
                 this.authenticated=true;
                 cb(res.data.access_token)
+            }
+            else{
+              setter(false)
+              seterror_msg(res.data)
+              open(true);
+              status("error");
             }
           }
        
@@ -69,9 +75,9 @@ class Auth{
     let token =window.localStorage.getItem('plumaT');
     let user ={};
     let value = false;
-    if(token!=='expired'){
+    if(token && token!=='expired'){
       user = jwt.decode(token);
-    }
+    
    
     var current_time = Date.now() / 1000;
     if(user && Object.keys(user).length>0){
@@ -84,6 +90,10 @@ class Auth{
     else{
       value = false
     }
+  }
+  else{
+    value = false
+  }
     
     return value
       

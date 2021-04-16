@@ -2,7 +2,9 @@ import { Container, Grid } from '@material-ui/core'
 import React from 'react'
 import SingleFav from '../../Components/Favorite/SingleFav'
 
-function Favorite({data}) {
+function Favorite({data,list}) {
+
+    console.log(list)
     return (
        <Container>
             <Grid item md={12} xs ={12} style={{padding:'20px'}}>

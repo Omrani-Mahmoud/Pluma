@@ -5,9 +5,12 @@ import {
     useRecoilState,
     useRecoilValue,
   } from 'recoil';
+import jwt from 'jsonwebtoken'
+import {getToken} from '../Selectors/TokenSelector'
 
+let t= window.localStorage.getItem('plumaT');
 
-
+console.log('TTT',t)
   export const userState = atom({
     key: 'userState',
     default: {fullname:'mahmoud Omrani',email:'omrani@omrani.com',plan:'Lifetime'},
@@ -15,18 +18,21 @@ import {
 
   export const tokenState = atom({
     key: 'tokenState',
-    default: {token:''},
+    default: {token:t},
   });
 
 
 
   export const workSpaceState = atom({
     key: 'workSpaceState',
-    default: [
-      {name:'Bicycle booth',isActive:true},
-      {name:'Alissar',isActive:false},
-      {name:'Logistio',isActive:false},
-    ],
+    default:t !== null ?jwt.decode(t).workspaces:[]
+
+  });
+
+  export const favoritesState = atom({
+    key: 'favoritesState',
+    default:t !==null ?jwt.decode(t).favorites:[]
+
   });
 
 

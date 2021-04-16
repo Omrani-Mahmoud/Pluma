@@ -12,6 +12,7 @@ import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
 import {resultsState} from '../../../Atoms/Atoms'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {getToken} from '../../../Selectors/TokenSelector'
+import CustomSnackbar from "../../../Components/SnackBars/CustomSnackBar";
 
 const initValue = {
     prod_name:'',
@@ -48,12 +49,14 @@ function EmoAnglesForm({languages}) {
     const [results,setResults] = useRecoilState(resultsState);
     const [checked, setchecked] = React.useState(false);
     const authToken = useRecoilValue(getToken);
+    const [open, setOpen] = React.useState(false);
 
     const handleChange = (event) => {
         setchecked(event.target.checked);
       };
 
       const _getResults = ()=>{
+          if(formValue.desc.length>0){
         setloading(true);
         let body = {
             inp:languages.input,
@@ -80,6 +83,10 @@ function EmoAnglesForm({languages}) {
             console.log(error);
           });
         }
+        else{
+            setOpen(true)
+        }
+    }
 
         React.useEffect(() => {
             const inputs = JSON.parse(window.localStorage.getItem('oldInputs'))
@@ -88,7 +95,13 @@ function EmoAnglesForm({languages}) {
 
     return (
         <Grid item md={12} xs ={12} style={{padding:'20px'}}>
-                <section style={{background:'rgb(217,221,251)',padding:'10px',textAlign:'center'}}>
+            <CustomSnackbar
+                    setter={setOpen}
+                    open={open}
+                    content="Ops, description is required !"
+                    type="error"
+                />
+                <section style={{background:'rgb(217,221,251)',padding:'10px',textAlign:'center',borderRadius:'10px'}}>
                     <span className='boldText' style={{textTransform:'uppercase',fontSize:'30px'}}>Emotional Angles</span>
                 </section>
                <div style={{background:'white',marginTop:'30px',padding:'20px',display:'flex',flexDirection:'column',justifyContent:'center'}}>
@@ -102,7 +115,7 @@ function EmoAnglesForm({languages}) {
                     <CircularProgress size={24} style={{alignSelf:'center',marginTop:'35px'}}/>
                     :
                 <Button
-                    style={{background:'#6A7BFF',color:'white',marginTop:'20px',borderRadius:'0px'}}
+                    style={{background:'#6A7BFF',color:'white',marginTop:'20px',borderRadius:'0px',borderRadius:'20px'}}
                     fullWidth
                     variant="contained"
                     onClick={()=>_getResults()}

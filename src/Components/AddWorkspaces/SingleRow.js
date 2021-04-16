@@ -42,8 +42,8 @@ function SingleRow({workspace}) {
                {
                     !edit?
                         <section style={{display:'flex'}}>
-                            {workspace.isActive && <CustomBadge /> }
-                            {!workspace.isActive && <EmptyCustomBadge /> }
+                            {workspace.is_active && <CustomBadge /> }
+                            {!workspace.is_active && <EmptyCustomBadge /> }
                             <span style={{fontSize:'18px'}}>{workspace.name}</span>
                         </section>
                     :

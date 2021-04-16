@@ -103,6 +103,10 @@ const _addPage = ()=>{
                 })
                 :
                 <span style={{color:'white',fontWeight:'bold',fontSize:'15px',background:'#ff0033',padding:'10px',textAlign:'center'}}>{results.data}</span>
+                //You reached your usage limit !
+
+
+                
             }
             {/* <Pagination count={pagesCount} shape="rounded"  style={{alignSelf:'center'}} onChange={(e,page)=>{handlePageChange(page)}} page={page}/> */}
             {/* <nav>

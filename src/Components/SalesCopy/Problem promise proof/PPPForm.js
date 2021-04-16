@@ -15,6 +15,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { getActiveTone } from "../../../Selectors/TonesSelector";
 import VoiceToneList from '../../Voice tone/VoiceToneList';
 import {getToken} from '../../../Selectors/TokenSelector'
+import CustomSnackbar from "../../../Components/SnackBars/CustomSnackBar";
 
 const initValue = {
     prod_name:'',
@@ -52,12 +53,14 @@ function PPPForm({languages}) {
     const [loading, setloading] = React.useState(false)
     const activeTone = useRecoilValue(getActiveTone);
     const authToken = useRecoilValue(getToken);
+    const [open, setOpen] = React.useState(false);
 
     const handleChange = (event) => {
         setchecked(event.target.checked);
       };
 
       const _getResults = ()=>{
+          if(formValue.prod_name.length>0){
         setloading(true);
         let body = {
             inp:languages.input,
@@ -105,6 +108,10 @@ function PPPForm({languages}) {
             console.log(error);
           });
         }
+        else{
+            setOpen(true)
+        }
+    }
 
         React.useEffect(() => {
             const inputs = JSON.parse(window.localStorage.getItem('oldInputs'))
@@ -113,7 +120,13 @@ function PPPForm({languages}) {
 
     return (
         <Grid item md={12} xs ={12} style={{padding:'20px'}}>
-                <section style={{background:'rgb(217,221,251)',padding:'10px',textAlign:'center'}}>
+            <CustomSnackbar
+                    setter={setOpen}
+                    open={open}
+                    content="Ops, product name is required !"
+                    type="error"
+                />
+                <section style={{background:'rgb(217,221,251)',padding:'10px',textAlign:'center',borderRadius:'10px'}}>
                     <span className='boldText' style={{textTransform:'uppercase',fontSize:'30px'}}>Problem Promise Proof</span>
                 </section>
                <div style={{background:'white',marginTop:'30px',padding:'20px',display:'flex',flexDirection:'column',justifyContent:'center'}}>
@@ -146,7 +159,7 @@ function PPPForm({languages}) {
                     <CircularProgress size={24} style={{alignSelf:'center',marginTop:'35px'}}/>
                     :
                     <Button
-                    style={{background:'#6A7BFF',color:'white',marginTop:'20px',borderRadius:'0px'}}
+                    style={{background:'#6A7BFF',color:'white',marginTop:'20px',borderRadius:'0px',borderRadius:'20px'}}
                     fullWidth
                     variant="contained"
                     onClick={()=>_getResults()}

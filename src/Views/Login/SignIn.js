@@ -35,7 +35,7 @@ import {
   useRecoilValue,
 } from "recoil";
 
-import { userState,tokenState } from "../../Atoms/Atoms";
+import { userState,tokenState,workSpaceState,favoritesState } from "../../Atoms/Atoms";
 import { updateUser } from "../../Selectors/UserSelector";
 
 import alpha_a from "../../Assets/img/Angle_C4/a2_0003.png";
@@ -110,6 +110,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(5),
     width: 200,
     height: 50,
+    cursor:'pointer'
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -137,6 +138,9 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiInput-underline:after": {
       borderBottomColor: "black",
     },
+    '&.Mui-focused fieldset': {
+      borderColor: 'green',
+    },
     "& .MuiOutlinedInput-root": {
       "&.Mui-focused fieldset": {
         borderColor: "black",
@@ -148,6 +152,8 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn(props) {
   const [_user, _setUser] = useRecoilState(userState);
   const [_token, _setToken] = useRecoilState(tokenState);
+  const [_workspace, _setworkspace] = useRecoilState(workSpaceState);
+  const [_favorites, _setFavorites] = useRecoilState(favoritesState);
 
   const log = useRecoilValue(updateUser);
 
@@ -179,10 +185,14 @@ export default function SignIn(props) {
 
   const [forgotPass, setforgotPass] = React.useState(false);
 
+  const [error_msg, seterror_msg] = React.useState('hahaha')
   const AuthHandler = () => {
     setloading(true);
-    auth.login(userInfo,setloading,setStatus,setOpenLogin,(token)=>{
-        _setToken(token);
+    auth.login(userInfo,setloading,setStatus,setOpenLogin,seterror_msg,(token)=>{
+        _setToken({token:token});
+        _setworkspace(jwt.decode(token).workspaces)
+        _setFavorites(jwt.decode(token).favorites)
+
         window.localStorage.setItem('plumaT',token);
         history.push('/home')
     })};
@@ -223,7 +233,7 @@ export default function SignIn(props) {
         <CustomSnackbar
           setter={setOpenLogin}
           open={openLogin}
-          content="Ops, Wrong user credentials !"
+          content={error_msg}
           type="error"
         />
       ) : null}
@@ -414,7 +424,7 @@ export default function SignIn(props) {
           animate="visible"
           className={classes.paper}
         >
-          <Avatar className={classes.avatar} src={logo} variant="square" />
+          <Avatar className={classes.avatar} onClick={()=>setforgotPass(false)} src={logo} variant="square" />
           <Typography
             variant="span"
             style={{ alignSelf: "center", fontSize: "15px", fontWeight: 100 }}

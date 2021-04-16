@@ -3,8 +3,7 @@ import React from 'react'
 
 function Langue({lang,activeLangue,handler}) {
 
-    console.log('active----->',activeLangue)
-    console.log('LANG----->',lang)
+  
 
     return (
         <MenuItem style={{width:'150px',textAlign:'center',fontSize:'13px',color:'white',display:"flex",justifyContent:'center'}} onClick={()=>handler(lang)}>

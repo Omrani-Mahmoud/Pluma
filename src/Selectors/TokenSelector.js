@@ -15,7 +15,7 @@ import {tokenState} from '../Atoms/Atoms'
 export const getToken = selector({
   key:'getToken',
   get:({get})=>{
-    const token = get(tokenState);
+    const {token} = get(tokenState);
     return token
   }
 })
@@ -25,7 +25,7 @@ export const getToken = selector({
 export const decodeToken = selector({
     key:'decodeToken',
     get:({get})=>{
-      const token = get(tokenState);
+      const {token} = get(tokenState);
       return jwt.decode(token)
     }
   })

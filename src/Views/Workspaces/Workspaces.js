@@ -21,20 +21,16 @@ const useStyles = makeStyles({
         fontWeight:'bold'
     }
   });
-function Workspaces() {
+function Workspaces({addWorkspace}) {
     const [workspaces, setWorkSpaces] = useRecoilState(workSpaceState);
     const activeSpacework = useRecoilValue(activeWorkspace);
     const [isNew, setIsNew] = React.useState(false)
-
-
-    console.log('ACRIVE HERE ::::::::',activeSpacework)
-
 
     const push_new = (value)=>{
         setWorkSpaces((oldList)=>[
             ...oldList,{
                 name:value,
-                isActive:false
+                is_active:false
             },
         ]);
         setIsNew(false);
@@ -54,7 +50,7 @@ function Workspaces() {
             }
             {
                 isNew && 
-                <NewWorkSpace isNewSetter={setIsNew} push_new={push_new} /> 
+                <NewWorkSpace addWorkspace={addWorkspace} isNewSetter={setIsNew}  /> // push_new={push_new}
             }
                 
             </div>

@@ -64,6 +64,7 @@ import SentenceExpanderForm from '../WebsitesCopy/SentenceExpander/SentenceExpan
 import InstagramCaptionForm from '../Social ADS/InstagramCaptions/InstagramCaptionForm';
 import ValuePropositionForm from '../Brainstorming/Value proposition/ValuePropositionForm';
 import useDecodeToken from '../../Hooks/useDecodeToken'
+import {ReactComponent as GlassesIcon} from '../../Assets/Icons/svg/fi-rs-glasses.svg';
 
 const drawerWidth = 240;
 
@@ -143,7 +144,7 @@ const useStyles = makeStyles((theme) => ({
 function CustomTopBar(props) {
 
   let location=useLocation();
-  const { window } = props;
+  const { window_ } = props;
   const classes = useStyles();
   const theme = useTheme();
   const currentWorkspace= useRecoilValue(activeWorkspace);
@@ -175,9 +176,9 @@ function CustomTopBar(props) {
       })
     const elementsIndex =workSpace.findIndex(element => element.name == v );
     let newArray = [...workSpace];
-    newArray[elementsIndex] = {...newArray[elementsIndex], isActive: true};
+    newArray[elementsIndex] = {...newArray[elementsIndex], is_active: true};
     wrong.map(i=>{
-        newArray[i] = {...newArray[i], isActive: false};
+        newArray[i] = {...newArray[i], is_active: false};
     })
     setWorkSpace(newArray)
     setisMenuOpen(null);
@@ -227,6 +228,11 @@ const handleProfileMenuOpen = (event)=>{
 const handleProfileMenuClose = ()=>{
 // auth.logout()
 setisProfileMenuOpen(null)
+}
+
+const logout = ()=>{
+  window.localStorage.removeItem('plumaT');
+
 }
 
   const drawer = (
@@ -280,10 +286,11 @@ setisProfileMenuOpen(null)
   );
 
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container = window_ !== undefined ? () => window_().document.body : undefined;
 
+  
   const _getuserName = ()=>{
-      return `${decodedToken.first_name}.${decodedToken.last_name[0]}`
+      return `${decodedToken?.first_name}.${decodedToken?.last_name[0]}`
   }
 
 
@@ -377,7 +384,7 @@ setisProfileMenuOpen(null)
                     <Link to='/home/favorite' style={{textDecoration:'none'}} whileHover={{ color: "#6A7BFF" }}  ><motion.span whileHover={{ color: "#6A7BFF" }} style={{color:'#202020'}}>Favorite List</motion.span></Link>
                 </section>
                 <section style={{width:'18%',flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',borderLeft:'2px solid rgb(246,246,246)'}}>
-                <span style={{color:'#6A7BFF',display:'flex',alignItems:'center',fontWeight:'bold',cursor:'pointer'}} onClick={handleMenuOpen}>{currentWorkspace.name}
+                <span style={{color:'#6A7BFF',display:'flex',alignItems:'center',fontWeight:'bold',cursor:'pointer'}} onClick={handleMenuOpen}>{currentWorkspace?.name}
                 {
                     isMenuOpen?
                     <ExpandLessIcon style={{marginLeft:'10px'}}/>
@@ -438,8 +445,9 @@ setisProfileMenuOpen(null)
                                       <MenuItem style={{width:'150px',textAlign:'center',fontSize:'13px',display:"flex",justifyContent:'center',color:'white'}} >Workspaces</MenuItem>
                                     </Link>
                                     <Divider variant="middle" style={{background:'white'}} />
-                                    <MenuItem onClick={handleProfileMenuClose}  style={{width:'150px',textAlign:'center',fontSize:'13px',display:"flex",justifyContent:'center',color:'white'}} >Logout</MenuItem>    
-                       
+                                    <Link to='/' onClick={()=>{handleProfileMenuClose();logout()}} style={{textDecoration:'none'}}>
+                                      <MenuItem   style={{width:'150px',textAlign:'center',fontSize:'13px',display:"flex",justifyContent:'center',color:'white'}} >Logout</MenuItem>    
+                                    </Link>
                         {/* <Divider variant="middle" /> */}
 
                     </Menu>
@@ -542,10 +550,12 @@ setisProfileMenuOpen(null)
 
                           </Switch>
             </Grid>
-            <Grid item md={6} xs ={12} style={{height:'100%',overflowY:'auto'}}>
+            <Grid item md={6} xs ={12} style={{height:'100%',overflowY:'auto',display:'flex',justifyContent:'center',alignItems:'center'}}>
               {
-                resultsStatus.display && 
+                resultsStatus.display ?
                 <Result />
+                :
+                <span style={{padding:'15px',color:'#6A7BFF',background:'white',borderRadius:'5px',display:'flex',alignItems:'center',fontSize:'13px'}}><GlassesIcon style={{width:16,height:12,fill:'#6A7BFF',marginRight:'10px'}} />Results will be shown here </span>
               }
             </Grid>
           </>

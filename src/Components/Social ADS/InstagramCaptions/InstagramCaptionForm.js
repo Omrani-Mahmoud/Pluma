@@ -15,6 +15,7 @@ import {resultsState} from '../../../Atoms/Atoms'
 import { getActiveTone } from "../../../Selectors/TonesSelector";
 import VoiceToneList from '../../Voice tone/VoiceToneList';
 import {getToken} from '../../../Selectors/TokenSelector'
+import CustomSnackbar from "../../../Components/SnackBars/CustomSnackBar";
 
 
 const initValue = {
@@ -53,6 +54,7 @@ function InstagramCaptionForm({languages}) {
     const [results,setResults] = useRecoilState(resultsState);
     const activeTone = useRecoilValue(getActiveTone);
     const authToken = useRecoilValue(getToken);
+    const [open, setOpen] = React.useState(false);
 
     const handleChange = (event) => {
         setchecked(event.target.checked);
@@ -60,6 +62,7 @@ function InstagramCaptionForm({languages}) {
 
 
       const _getResults = ()=>{
+          if(formValue.desc.length>0){
         setloading(true);
         let body = {
             inp:languages.input,
@@ -106,6 +109,10 @@ function InstagramCaptionForm({languages}) {
             console.log(error);
           });
         }
+        else{
+            setOpen(true)
+        }
+    }
 
         React.useEffect(() => {
             const inputs = JSON.parse(window.localStorage.getItem('oldInputs'))
@@ -115,7 +122,13 @@ function InstagramCaptionForm({languages}) {
         
     return (
         <Grid item md={12} xs ={12} style={{padding:'20px'}}>
-                <section style={{background:'rgb(217,221,251)',padding:'10px',textAlign:'center'}}>
+            <CustomSnackbar
+                    setter={setOpen}
+                    open={open}
+                    content="Ops, description is required !"
+                    type="error"
+                />
+                <section style={{background:'rgb(217,221,251)',padding:'10px',textAlign:'center',borderRadius:'10px'}}>
                     <span className='boldText' style={{textTransform:'uppercase',fontSize:'30px'}}>Instagram Captions</span>
                 </section>
                <div style={{background:'white',marginTop:'30px',padding:'20px',display:'flex',flexDirection:'column',justifyContent:'center'}}>
@@ -149,7 +162,7 @@ function InstagramCaptionForm({languages}) {
                     <CircularProgress size={24} style={{alignSelf:'center',marginTop:'35px'}}/>
                     :
                     <Button
-                    style={{background:'#6A7BFF',color:'white',marginTop:'20px',borderRadius:'0px'}}
+                    style={{background:'#6A7BFF',color:'white',marginTop:'20px',borderRadius:'0px',borderRadius:'20px'}}
                     fullWidth
                     variant="contained"
                     onClick={()=>_getResults()}
