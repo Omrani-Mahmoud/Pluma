@@ -13,6 +13,7 @@ import {
     useRecoilValue,
   } from 'recoil';
 import NewWorkSpace from '../../Components/AddWorkspaces/NewWorkSpace';
+import Empty from './Empty';
 const useStyles = makeStyles({
     table: {
       minWidth: 350,
@@ -38,10 +39,15 @@ function Workspaces({addWorkspace}) {
     return (
         <Container>
         <Grid item md={12} xs ={12} style={{padding:'20px'}}>
-            <section style={{background:'rgb(217,221,251)',padding:'10px',width:'50%',marginBottom:'30px'}}>
+            <section style={{background:'rgb(217,221,251)',padding:'10px',width:'50%',marginBottom:'30px',borderRadius:'10px'}}>
                 <span className='boldText' style={{textTransform:'uppercase',fontSize:'30px',marginLeft:'14px'}}>ADD WORKSPACE</span>
             </section>
-            <div style={{background:'white',padding:'20px'}}>
+            <div style={{background:'white',padding:'20px',borderRadius:'10px'}}>
+            
+            {
+                    workspaces.length===0 &&
+                    <Empty isNewSetter={setIsNew}/>
+            }
             {
                 workspaces.map(elem=>{
                     
@@ -54,7 +60,7 @@ function Workspaces({addWorkspace}) {
             }
                 
             </div>
-            <Button variant="contained" style={{background:'#6A7BFF',borderRadius:'0px',color:'white',fontWeight:'bold',float:'right',marginTop:'10PX'}} disableElevation	onClick={()=>setIsNew(true)}>
+            <Button variant="contained" style={{background:'#6A7BFF',borderRadius:'20px',color:'white',fontWeight:'bold',float:'right',marginTop:'10PX'}} disableElevation	onClick={()=>setIsNew(true)}>
                     ADD NEW WORKSPACE
                 </Button>
             

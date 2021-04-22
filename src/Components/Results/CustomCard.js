@@ -10,7 +10,7 @@ import { Divider, Grid, IconButton, Paper } from '@material-ui/core';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import {ReactComponent as DeleteIcon} from '../../Assets/Icons/svg/fi-rs-trash.svg';
-import {ReactComponent as DownloadIcon} from '../../Assets/Icons/svg/fi-rs-download.svg';
+import {ReactComponent as CopyIcon} from '../../Assets/Icons/svg/fi-rs-duplicate.svg';
 import {ReactComponent as HeartIcon} from '../../Assets/Icons/svg/fi-rs-bookmark.svg';
 import {activeWorkspace} from '../../Selectors/WorkspaceSelector'
 import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
@@ -30,7 +30,10 @@ function CustomCard({index,content}) {
     const [_favorites, _setFavorites] = useRecoilState(favoritesState);
 
     const [open, setOpen] = React.useState(false);
+    const [open_copy, setOpen_copy] = React.useState(false);
+
     const [status, setStatus] = React.useState("");
+    const [status_copy, setStatus_copy] = React.useState("");
 
     const _addToFav = (value) =>{
         //if error on value type try to aprse it 
@@ -55,7 +58,7 @@ function CustomCard({index,content}) {
                 window.localStorage.setItem('plumaT',res.data)
   
               }
-              setStatus('error')
+              // setStatus('error')
             }
           
           })
@@ -65,7 +68,6 @@ function CustomCard({index,content}) {
               setStatus('error')
            
             })
-        console.log('active workspace here',currentWorkspace,value)
       }
 
 
@@ -83,9 +85,18 @@ function CustomCard({index,content}) {
        })
        return display
     }
+    const copy_  = () => {
+      navigator.clipboard.writeText(content).then(()=>{
+          setStatus_copy(200);
+          setOpen_copy(true)
+      },()=>{
+        setStatus_copy('error')
+        setOpen_copy(true)
+      })
+  }
     return (
        
-         <Paper elevation={0} square style={{height:'33vh',marginBottom:'10px',padding:'24px',width:'100%',marginRight:'15px',borderRadius:'10px'}}>
+         <Paper elevation={0} square style={{marginBottom:'10px',padding:'24px',width:'100%',marginRight:'15px',borderRadius:'18px'}}>
             
             {
               status === 'error' ?
@@ -104,16 +115,35 @@ function CustomCard({index,content}) {
               />
             }
 
+        {
+              status_copy === 'error' && 
+                <CustomSnackbar
+                    setter={setOpen}
+                    open={open}
+                    content="Ops, Something Wrong!"
+                    type="error"
+                />
+            }
+            {
+                status_copy === 200 && 
+              <CustomSnackbar
+                  setter={setOpen}
+                  open={open}
+                  content="Text copied to clipboard !"
+                  type="info"
+              />
+            }
+
 
          <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
-             <div style={{height:'23vh'}}>
+             <div>
              <span><b style={{fontSize:'18px',marginLeft:'10px',fontWeight:'bold'}}>{`Result ${index}`}</b></span>
              <Divider variant="middle" style={{marginTop:'10px',marginLeft:'-10px'}} />
 
              {/* <p  style={{height:'16vh',overflowY:'auto',display:'inline-block',wordWrap:'break-word',whiteSpace:'initial',overflowWrap:"break-word",padding:'10px',fontSize:'15px'}}>
              {   beautify(content)}
             </p> */}
-            <div style={{height:'17vh',overflowY:'auto'}}>
+            <div>
             {
                 beautify()
             }
@@ -121,10 +151,9 @@ function CustomCard({index,content}) {
             
              </div>
              <section style={{float:'right',marginRight:'-10px',paddingTop:'10px',display:'flex',justifyContent:'flex-end'}}>
-                     <DownloadIcon  style={styleDonwload} onMouseEnter={()=>sethoverIcons({...hoverIcons,download:true})} onMouseLeave={()=>sethoverIcons({...hoverIcons,download:false})} />
-
-               
                      <HeartIcon onClick={()=>_addToFav(beautify()[0].props.children)} style={styleDelete} onMouseEnter={()=>sethoverIcons({...hoverIcons,heart:true})} onMouseLeave={()=>sethoverIcons({...hoverIcons,heart:false})}/>
+                     <CopyIcon onClick={copy_}  style={styleDonwload} onMouseEnter={()=>sethoverIcons({...hoverIcons,download:true})} onMouseLeave={()=>sethoverIcons({...hoverIcons,download:false})} />
+
          
              </section>
          </div> 

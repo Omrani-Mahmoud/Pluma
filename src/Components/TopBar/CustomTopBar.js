@@ -24,6 +24,8 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import logo from '../../Assets/img/pluma logo/Logo.svg'
+import minilogo from '../../Assets/img/pluma logo/Pluma-logomark.png'
+
 import '../../Assets/Css/TopBar.css'
 import { motion } from 'framer-motion';
 import Langue from '../Language Items/Langue';
@@ -65,94 +67,112 @@ import InstagramCaptionForm from '../Social ADS/InstagramCaptions/InstagramCapti
 import ValuePropositionForm from '../Brainstorming/Value proposition/ValuePropositionForm';
 import useDecodeToken from '../../Hooks/useDecodeToken'
 import {ReactComponent as GlassesIcon} from '../../Assets/Icons/svg/fi-rs-glasses.svg';
+import {ReactComponent as BurgerMEnu} from '../../Assets/Icons/svg/fi-rs-menu-burger.svg';
 
-const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    paddingTop:'5px',
-    height:'100vh'
-  },
-  large: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
-  },
-  logo_large: {
-    width: '210px',
-    padding:'15px',
-    height: theme.spacing(10),
-    marginLeft:'18px'
 
-  
-  },
-  drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-  },
-  appBar: {
-    [theme.breakpoints.up('sm')]: {
-      width: '100%',
-      marginLeft: drawerWidth,
-      background:'white',
-      height:'85px',
-        boxShadow:'0px 3px 5px 0px rgba(234 ,235, 239, .7)',
-    //   borderBottom:'1px solid #C4C4C4'
-    zIndex:9999
-  
-    },
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-  },
-
-  drawerPaper: {
-    width: drawerWidth,
-
-  
-  },
-  drawerPaperWeb: {
-    width: drawerWidth,
-    marginTop:'85px',
-    paddingTop:'75px',
-    border:'none',
-    overflowY:'auto',
-    maxHeight:'88vh'
-  },
-
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    background:'rgb(245,246,250)',
-    paddingTop:'84px',
-    flexDirection:'row',
-    display:"flex"
-
-  },
-}));
 
 function CustomTopBar(props) {
 
+  const [drawerWidth, setdrawerWidth] = React.useState(50)
+  const customAccordingRef = React.useRef();
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      paddingTop:'5px',
+      height:'100vh'
+    },
+    large: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+    },
+    logo_large: {
+      width: '210px',
+      padding:'15px',
+      height: theme.spacing(10),
+      marginLeft:'18px'
+    },
+  
+    drawer: {
+      [theme.breakpoints.up('sm')]: {
+        width: drawerWidth,
+        flexShrink: 0,
+        
+      },
+    },
+    appBar: {
+      [theme.breakpoints.up('sm')]: {
+        width: '100%',
+        marginLeft: drawerWidth,
+        background:'white',
+        height:'85px',
+          boxShadow:'0px 3px 5px 0px rgba(234 ,235, 239, .7)',
+      //   borderBottom:'1px solid #C4C4C4'
+      zIndex:9999
+    
+      },
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+      [theme.breakpoints.up('sm')]: {
+        display: 'none',
+      },
+    },
+    // necessary for content to be below app bar
+    toolbar: theme.mixins.toolbar,
+    drawerPaper: {
+      width: drawerWidth,
+    },
+  
+    drawerPaper: {
+      width: drawerWidth,
+  
+    
+    },
+    drawerPaperWeb: {
+      width: drawerWidth,
+      marginTop:'85px',
+      paddingTop:'75px',
+      border:'none',
+      overflowY:'auto',
+      maxHeight:'88vh',
+    },
+  
+    content: {
+      flexGrow: 1,
+      padding: theme.spacing(3),
+      background:'rgb(245,246,250)',
+      paddingTop:'84px',
+      flexDirection:'row',
+      display:"flex"
+  
+    },
+  }));
+  
+
+
+
+
+
   let location=useLocation();
+
+  const testt = {
+    width: drawerWidth,
+    flexShrink: 0,
+    transition: '0.4s',
+    cursor:'pointer'
+  }
   const { window_ } = props;
   const classes = useStyles();
   const theme = useTheme();
   const currentWorkspace= useRecoilValue(activeWorkspace);
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [isMenuOpen, setisMenuOpen] = React.useState(null)
-  const [isProfileMenu, setisProfileMenuOpen] = React.useState(null)
-  const [isInputMenuOpen, setisInputMenuOpen] = React.useState(null)
-  const [isOutputMenuOpen, setisOutputMenuOpen] = React.useState(null)
+  const [isMenuOpen, setisMenuOpen] = React.useState(null);
+  const [isProfileMenu, setisProfileMenuOpen] = React.useState(null);
+  const [isInputMenuOpen, setisInputMenuOpen] = React.useState(null);
+  const [isOutputMenuOpen, setisOutputMenuOpen] = React.useState(null);
+  const [sideMenuHover, setsideMenuHover] = React.useState(false);
 
   const [user,setUser] = useRecoilState(userState);
   const [workSpace,setWorkSpace] = useRecoilState(workSpaceState);
@@ -235,6 +255,7 @@ const logout = ()=>{
 
 }
 
+  
   const drawer = (
     <div>
       <div className={classes.toolbar} />
@@ -290,11 +311,19 @@ const logout = ()=>{
 
   
   const _getuserName = ()=>{
-      return `${decodedToken?.first_name}.${decodedToken?.last_name[0]}`
+      return `${user?.first_name}.${user?.last_name[0]}`
   }
 
+ const hover_in_Handler=  ()=>{
+      setdrawerWidth(280);
+      setsideMenuHover(true);
+ }
 
-  console.log('here results',resultsStatus)
+ const hover_leave_Handler=  ()=>{
+      setdrawerWidth(50);
+      setsideMenuHover(false);
+}
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -311,7 +340,7 @@ const logout = ()=>{
           </IconButton>
           <div style={{width:'100%',height:'85px',display:'flex',justifyContent:'flex-end'}}>
             <section style={{width:'21%',flexDirection:'row',display:'flex',justifyContent:'flex-start',alignItems:'flex-start'}}>
-                      <Avatar variant="square" src={logo} className={classes.logo_large} />
+                      < a href='/home' ><Avatar  variant="square" src={logo} className={classes.logo_large} /></a>
 
             </section>
             <section style={{width:'15%',flexDirection:'row',display:'flex',justifyContent:'flex-start',alignItems:'center'}}>
@@ -417,9 +446,8 @@ const logout = ()=>{
 
                 </section>
                 <section style={{width:'18%',flexDirection:'row',display:'flex',justifyContent:'center',alignItems:'center',borderLeft:'2px solid rgb(246,246,246)'}}>
-                    <Avatar variant="square" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Felix_Cat-Haha.svg/1200px-Felix_Cat-Haha.svg.png" className={classes.large} />
                     <span style={{textTransform:'capitalize',color:isProfileMenu?'#6A7BFF':'#202020',display:'flex',alignItems:'center',cursor:'pointer'}} onClick={handleProfileMenuOpen}>
-                        {_getuserName()}
+                        {user.first_name}.{user.last_name[0]}
                         {
                     isProfileMenu?
                     <ExpandLessIcon style={{marginLeft:'10px'}}/>
@@ -455,7 +483,11 @@ const logout = ()=>{
           </div>
         </Toolbar>
       </AppBar>
-      <nav className={classes.drawer} aria-label="mailbox folders">
+
+
+
+      {/*************** the side bar here !! ***********************************/}
+      <nav onMouseEnter={()=>hover_in_Handler()} onMouseLeave={()=>hover_leave_Handler()} style={testt} >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         
         <Hidden smUp implementation="css">
@@ -475,7 +507,10 @@ const logout = ()=>{
              {drawer}
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="css">
+
+
+    
+        <Hidden  xsDown implementation="css">
           <Drawer
             classes={{
               paper: classes.drawerPaperWeb,
@@ -483,10 +518,29 @@ const logout = ()=>{
             variant="permanent"
             open
           >
-           <CustomAccording />
+            {
+             sideMenuHover ?
+                 <CustomAccording ref={customAccordingRef} />
+                 :
+                 <>
+                 {/* <Avatar variant="square" src={minilogo} style={{margin:'5px'}}/> */}
+                 <div style={{height:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
+                      <BurgerMEnu style={{width:22,height:22,marginRight:'10px',fill:'#6A7BFF',transform: `rotate(90deg)`,margin:'13px'}} />
+                 </div>
+               
+
+                 </>
+
+            }
           </Drawer>
         </Hidden>
+      
       </nav>
+
+
+
+
+
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {
@@ -510,7 +564,8 @@ const logout = ()=>{
           {
           location.pathname==='/home' && 
           <>
-          <Empty />
+          <Empty hoverHandler={hover_in_Handler} />
+
           </>
         }
         {

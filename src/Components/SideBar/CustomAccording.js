@@ -6,6 +6,15 @@ import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SingleAccording from './SingleAccording';
+import {expandedSectionState} from '../../Atoms/Atoms'
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from "recoil";
+
 
 const Accordion = withStyles({
   root: {
@@ -49,11 +58,16 @@ const AccordionDetails = withStyles((theme) => ({
   },
 }))(MuiAccordionDetails);
 
-export default function CustomAccording() {
-  const [expanded, setExpanded] = React.useState('');
+const CustomAccording = (props,ref)=> {
+  const [expanded, setExpanded] = useRecoilState(expandedSectionState)
   const [activePath, setactivePath] = React.useState('')
+
+
+
+
+  
   const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
+    setExpanded(newExpanded ? panel : '');
   };
 
   const activePathSetter = (path)=>{
@@ -80,3 +94,5 @@ export default function CustomAccording() {
     </div>
   );
 }
+
+export default CustomAccording

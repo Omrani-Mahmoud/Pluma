@@ -132,7 +132,7 @@ function AidaForm({languages}) {
                 <section style={{background:'rgb(217,221,251)',padding:'10px',textAlign:'center',borderRadius:'10px'}}>
                     <span className='boldText' style={{textTransform:'uppercase',fontSize:'30px'}}>AIDA</span>
                 </section>
-               <div style={{background:'white',marginTop:'30px',padding:'20px',display:'flex',flexDirection:'column',justifyContent:'center'}}>
+               <div style={{background:'white',marginTop:'30px',padding:'20px',display:'flex',flexDirection:'column',justifyContent:'center',borderRadius:'18px'}}>
               <CustomInput v={formValue.prod_name} name='product name' placeholder='product name' action={dispatch} type='prod_name' />
 
               <CustomTextArea v={formValue.desc} action={dispatch} type='desc'/>

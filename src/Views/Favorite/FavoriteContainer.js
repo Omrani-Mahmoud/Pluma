@@ -12,18 +12,19 @@ function FavoriteContainer() {
 
     const currentWorkspace= useRecoilValue(activeWorkspace);
     const authToken = useRecoilValue(getToken);
-    const favoriteList = useRecoilValue(activeWorkspaceFavorites(currentWorkspace.id));
+    const favoriteList = useRecoilValue(activeWorkspaceFavorites(currentWorkspace?.id));
 
     const [_token, _setToken] = useRecoilState(tokenState);
     const [_favorites, _setFavorites] = useRecoilState(favoritesState);
 
-console.log('fav list',favoriteList)
 
 
 
 
     return (
-        <Favorite data={favoriteList} />
+        
+            <Favorite currentWorkspace={currentWorkspace} data={favoriteList} />
+     
     )
 }
 

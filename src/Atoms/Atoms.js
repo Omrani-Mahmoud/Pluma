@@ -9,11 +9,11 @@ import jwt from 'jsonwebtoken'
 import {getToken} from '../Selectors/TokenSelector'
 
 let t= window.localStorage.getItem('plumaT');
+let decoded = jwt.decode(t);
 
-console.log('TTT',t)
   export const userState = atom({
     key: 'userState',
-    default: {fullname:'mahmoud Omrani',email:'omrani@omrani.com',plan:'Lifetime'},
+    default: decoded? {first_name:decoded.first_name,last_name:decoded.last_name,email:decoded.email,plan:'Lifetime'}:{first_name:'-',last_name:'-',email:'',plan:'Lifetime'}
   });
 
   export const tokenState = atom({
@@ -53,4 +53,11 @@ console.log('TTT',t)
     key: 'voiceToneState',
     default: [{type:'professional',isActive:false},{type:'bold',isActive:false},{type:'adventurous',isActive:false},{type:'friendly',isActive:false},{type:'luxury',isActive:false},{type:'no tone',isActive:true}]
   });
+
+
+  export const expandedSectionState = atom({
+    key: 'expandedSectionState',
+    default: ''
+  });
+
 

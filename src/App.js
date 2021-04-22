@@ -7,11 +7,29 @@ import {
 } from 'recoil';
 import Home from './Views/Home/Home';
 import ProtectedRoute from './ProtectedRoute'
+import Mobile from './Views/Mobile';
 const history = createBrowserHistory();
 
 function App() {
-  console.log('ghere rechresh on app.js')
+  const [isMobile, setisMobile] = React.useState(false);
+
+  const detectMob = () => {
+    if ((window.innerWidth <= 1080) && (window.innerHeight <= 2400))
+      setisMobile(true);
+  }
+
+  React.useEffect(() => {
+    detectMob()
+
+  }, [])
   return (
+
+    <>
+      {
+        isMobile ?
+          <Mobile />
+          :
+          (
     <BrowserRouter>
       <RecoilRoot>
           <Router  history={history}>
@@ -27,6 +45,9 @@ function App() {
           </Router>
       </RecoilRoot>
     </BrowserRouter>
+          )
+}
+          </>
   );
 }
 

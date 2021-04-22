@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from "recoil";
 import {resultsState} from '../../Atoms/Atoms'
+import ErrorMsg from './ErrorMsg';
 
 const useStyles = makeStyles({
     ul: {
@@ -98,11 +99,20 @@ const _addPage = ()=>{
        <div style={{background:'white',marginTop:'0px',padding:'5px',display:'flex',flexDirection:'column',background:'rgb(245,246,250)'}}>
             {
                 results.data && typeof results.data=='object' ?
+
+                results.data['rate_limits'] ?
+
+                <ErrorMsg>
+                    {results.data['rate_limits']}
+                </ErrorMsg>
+                :
                 results.data.map((elem,index)=>{
                     return <CustomCard index={index+1} content={elem} />
                 })
                 :
-                <span style={{color:'white',fontWeight:'bold',fontSize:'15px',background:'#ff0033',padding:'10px',textAlign:'center'}}>{results.data}</span>
+                <ErrorMsg>
+                    {results.data}
+                </ErrorMsg>
                 //You reached your usage limit !
 
 

@@ -1,4 +1,4 @@
-import { Divider, FormControl, Grid, Input, InputAdornment, InputLabel, TextField } from '@material-ui/core'
+import { Button, Divider, FormControl, Grid, Input, InputAdornment, InputLabel, TextField } from '@material-ui/core'
 import React from 'react'
 
 
@@ -9,6 +9,8 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Visibility from '@material-ui/icons/Visibility';
 import {ReactComponent as EyeIcon} from '../../Assets/Icons/svg/fi-rs-eye.svg';
 import {ReactComponent as ClosedEyeIcon} from '../../Assets/Icons/svg/fi-rs-eye-crossed.svg';
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -17,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
       color: "#6A7BFF",
     },
     "& .MuiInput-underline:after": {
-      borderBottomColor: "#C4C4C4",
+      borderBottomColor: "#EBEDFC",
     },
     "& .MuiOutlinedInput-root": {
       "&.Mui-focused fieldset": {
@@ -26,6 +28,19 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+const theme = createMuiTheme({
+  overrides: {
+    MuiInput: {
+      underline: {
+        "&&&&:hover:before": {
+          borderBottom: "1px solid #C4C4C4"
+        }
+      }
+    }
+  }
+});
+
+
 function PasswordSection({dispatcher,form}) {
     const classes = useStyles();
     const [showPass, setshowPass] = React.useState({one:false,two:false});
@@ -40,14 +55,21 @@ function PasswordSection({dispatcher,form}) {
       setshowPass({...showPass,one:!showPass.one})
   }
     return (
-        <Grid md={6} xs={12} style={{padding:'10px',display:'flex',flexDirection:'column',justifyContent:'space-around',height:'350px'}}>
+      <Grid md={3} xs={12} >
+      <span style={{fontSize:'15px',padding:'10px',background:'#6A7BFF',justifyContent:'center',display:'flex',color:'white',borderRadius:'10px',marginBottom:'20px'}}>Password</span>
+        <Grid md={12} xs={12} style={{border:'1px solid #6A7BFF',padding:'15px',display:'flex',flexDirection:'column',justifyContent:'space-around',height:'350px',borderRadius:'10px',background:'white'}}>
         <section>
-            <span className='boldText' style={{textTransform:'uppercase',fontSize:'25px'}}>change password</span>
+            <span className='boldText' style={{textTransform:'uppercase',fontSize:'20px'}}>change password</span>
         </section>
 
       <FormControl className={classes.margin}>
         <span style={{color:isFocused.one?'#6A7BFF':'#8a8a8a'}}>Current Password</span>
-        <Input
+        <MuiThemeProvider theme={theme}>
+
+        <TextField
+                  className={classes.txtInput} 
+                  size='small'
+
           onFocus={()=>setIsFocused({...isFocused,one:true})}
           onBlur={()=>setIsFocused({...isFocused,one:false})}
           type={showPass.one?'text':'password'}
@@ -64,13 +86,18 @@ function PasswordSection({dispatcher,form}) {
             </InputAdornment>
           }
         />
+        </MuiThemeProvider>
       </FormControl>
 
 
 
       <FormControl className={classes.margin}>
         <span  style={{color:isFocused.two?'#6A7BFF':'#8a8a8a'}}>New Password</span>
-        <Input
+        <MuiThemeProvider theme={theme}>
+
+        <TextField
+               className={classes.txtInput} 
+            size='small'
           onFocus={()=>setIsFocused({...isFocused,two:true})}
           onBlur={()=>setIsFocused({...isFocused,two:false})}
           type={showPass.two?'text':'password'}
@@ -87,12 +114,14 @@ function PasswordSection({dispatcher,form}) {
             </InputAdornment>
           }
         />
+        </MuiThemeProvider>
       </FormControl>
 
 
-      
-        <Divider />
+      <Button style={{background:'#EBEDFC',color:'#6A7BFF' ,width:'109px',borderRadius:'10px',marginTop:'33px'}} >Save</Button>
 
+
+        </Grid>
         </Grid>
     )
 }

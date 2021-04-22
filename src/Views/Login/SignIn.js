@@ -189,9 +189,11 @@ export default function SignIn(props) {
   const AuthHandler = () => {
     setloading(true);
     auth.login(userInfo,setloading,setStatus,setOpenLogin,seterror_msg,(token)=>{
+        let decoded = jwt.decode(token);
         _setToken({token:token});
-        _setworkspace(jwt.decode(token).workspaces)
-        _setFavorites(jwt.decode(token).favorites)
+        _setUser({first_name:decoded.first_name,last_name:decoded.last_name,email:decoded.email})
+        _setworkspace(decoded.workspaces)
+        _setFavorites(decoded.favorites)
 
         window.localStorage.setItem('plumaT',token);
         history.push('/home')
