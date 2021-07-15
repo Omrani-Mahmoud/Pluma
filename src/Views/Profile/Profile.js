@@ -18,6 +18,7 @@ import {
 import AddMember from '../../Components/Profile/AddMember';
 import Team from '../../Components/Profile/Team/Team';
 import Usage from '../../Components/Profile/Usage';
+import Billing from '../../Components/Profile/Billing';
 
 const reducer = (state,action)=>{
     switch (action.type) {
@@ -27,11 +28,11 @@ const reducer = (state,action)=>{
             case 'last_name':
                return {...state,last_name:action.value}
             
-                    case 'current_pass':
-                        return {...state,current_password:action.value}
+                    // case 'current_pass':
+                    //     return {...state,current_password:action.value}
                     
-                        case 'new_pass':
-                            return {...state,new_password:action.value}
+                    //     case 'new_pass':
+                    //         return {...state,new_password:action.value}
         default:
            return state
     }
@@ -45,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
       height: theme.spacing(17),
     },
   }));
-function Profile({first_name='',last_name='',email='',update__}) {
+function Profile({first_name='',last_name='',email='',update__,addMember__,update_password}) {
     
     const accountInfoRef = React.useRef();
     // const classes = useStyles();
@@ -86,14 +87,15 @@ function Profile({first_name='',last_name='',email='',update__}) {
             </Badge>     */}
         <Grid md={12} xs={12} style={{padding:'15px',display:'flex',flexDirection:'row',justifyContent:'space-between',marginRight:'0px'}}>
 
-               <AccountInfoSection ref={accountInfoRef} dispatcher={dispatch} form={userForm} email={email} />
-                <AddMember />
-               <PasswordSection  dispatcher={dispatch} form={userForm}  />
+               <AccountInfoSection  update__={update__} ref={accountInfoRef} dispatcher={dispatch} form={userForm} email={email} />
+                <AddMember addMember__={addMember__} />
+               <PasswordSection  update_password ={update_password}dispatcher={dispatch} form={userForm}  />
 
             </Grid>
             <Team />
             <Usage />
             <Plans />
+        
             {/* <div style={{height:'100px',padding:'10px',marginTop:'80px'}}>
                     
                     <Button onClick={()=>{update__(userForm,accountInfoRef.current.show_snackbar)}} variant="contained" disableElevation style={{borderRadius:'0px',float:'right',width:'327px',background:'#6A7BFF',color:'white',fontWeight:'bold'}}>

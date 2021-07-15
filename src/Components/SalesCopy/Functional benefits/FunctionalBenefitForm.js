@@ -107,7 +107,7 @@ function FunctionalBenefitForm({languages}) {
                 </section>
                <div style={{background:'white',marginTop:'30px',padding:'20px',display:'flex',flexDirection:'column',justifyContent:'center',borderRadius:'18px'}}>
 
-              <CustomTextArea  v={formValue.desc} action={dispatch} type='desc'/>
+              <CustomTextArea  length={2000}v={formValue.desc} action={dispatch} type='desc'/>
                
           
                 

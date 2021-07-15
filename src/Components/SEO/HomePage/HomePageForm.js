@@ -185,12 +185,12 @@ function HomePageForm({languages}) {
                     <span className='boldText' style={{textTransform:'uppercase',fontSize:'30px'}}>Home Page</span>
                 </section>
                <div style={{background:'white',marginTop:'30px',padding:'20px',display:'flex',flexDirection:'column',justifyContent:'center',borderRadius:'18px'}}>
-              <CustomInput v={formValue.prod_name} name='product name' placeholder='product name' action={dispatch} type='prod_name' />
+              <CustomInput length={20} v={formValue.prod_name} name='product name' placeholder='product name' action={dispatch} type='prod_name' />
 
-              <CustomTextArea v={formValue.desc} action={dispatch} type='desc'/>
+              <CustomTextArea length={140} v={formValue.desc} action={dispatch} type='desc'/>
               
 
-                <MultiInputs action={dispatch} type='keywords' keywords={formValue.keywords} removeType={'removeKeyword'}/>
+                <MultiInputs length={40} action={dispatch} type='keywords' keywords={formValue.keywords} removeType={'removeKeyword'}/>
                {/* <FormControlLabel
                     control={<Checkbox checked={checked} onChange={handleChange} name="checkedA" color='default' size="small" />}
                     label="More options"

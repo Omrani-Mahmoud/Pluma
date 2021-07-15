@@ -10,10 +10,19 @@ function NewWorkSpace({push_new,isNewSetter,addWorkspace}) {
 
 
     //const [edit, setedit] = React.useState(false);
+
+    // handle if the icons is hovred or not
     const [hovred, sethovred] = React.useState({edit:false,delete:false})
+
+    //workspace input value
     const [inputValue, setinputValue] = React.useState('')
+
+    //if the input got an error => true
     const [error, seterror] = React.useState(false)
 
+
+
+    //hover style
     const DeletehoverStyle={
         fill:!hovred.delete?'#D9DDFB':'#6A7BFF',
         transition:'0.5s',
@@ -23,6 +32,7 @@ function NewWorkSpace({push_new,isNewSetter,addWorkspace}) {
     }
 
 
+    // function that saves the workspace and clear the values and remove the input component
     const save_edit= ()=>{
         if(inputValue.length>0){
             // push_new(inputValue)
@@ -37,11 +47,14 @@ function NewWorkSpace({push_new,isNewSetter,addWorkspace}) {
 
     }
 
+    // cancel function easy 
     const cancel= ()=>{
         isNewSetter(false);
         setinputValue('');
     }
 
+
+    // the input handler
     const handleChange = (e)=>{
         setinputValue(e.target.value)
     }

@@ -34,7 +34,7 @@ const theme = createMuiTheme({
   }
 });
 
- function CustomInput({name,placeholder,action,margin=10,type,v=''}) {
+ function CustomInput({name,placeholder,action,margin=10,type,v='',length=20}) {
     const classes = useStyles();
 
     const inputs = JSON.parse(window.localStorage.getItem('oldInputs'))
@@ -51,7 +51,7 @@ const theme = createMuiTheme({
        <Grid item md={12} xs={12} style={{marginBottom:`${margin}px`}}>
             <span style={{fontSize:'18px',textTransform:'capitalize'}}>{name}</span>
             <MuiThemeProvider theme={theme}>
-            <TextField className={classes.txtInput}  inputProps={{maxLength:30}} error={hasError} helperText="Max input size is 30 character" fullWidth placeholder={placeholder} InputLabelProps={{shrink: true}} style={{marginTop:'5px'}} defaultValue={v.lenght>0?v:inputs[type]} onChange={(e)=>check_(e)}/>
+            <TextField className={classes.txtInput}  inputProps={{maxLength:30}} error={hasError} helperText={`Max input size is ${length} character`} fullWidth placeholder={placeholder} InputLabelProps={{shrink: true}} style={{marginTop:'5px'}} defaultValue={v.lenght>0?v:inputs[type]} onChange={(e)=>check_(e)}/>
             </MuiThemeProvider>
        </Grid>
     )

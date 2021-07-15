@@ -105,7 +105,7 @@ function EmoAnglesForm({languages}) {
                     <span className='boldText' style={{textTransform:'uppercase',fontSize:'30px'}}>Emotional Angles</span>
                 </section>
                <div style={{background:'white',marginTop:'30px',padding:'20px',display:'flex',flexDirection:'column',justifyContent:'center',borderRadius:'18px'}}>
-              <CustomTextArea v={formValue.desc} action={dispatch} type='desc'/>
+              <CustomTextArea  length={200} v={formValue.desc} action={dispatch} type='desc'/>
                
                 {/* <input type="checkbox" id="scales" name="scales"
                         checked={checked} onChange={handleChange} />

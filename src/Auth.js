@@ -23,14 +23,13 @@ class Auth{
         if(res.status===200)
         {
           setter(false)
-          console.log('here token',res.data.access_token)
             if(res.data && res.data.access_token){
                 this.authenticated=true;
                 cb(res.data.access_token)
             }
             else{
               setter(false)
-              seterror_msg(res.data)
+              seterror_msg(res.data['wrong password']?res.data['wrong password']:res.data)
               open(true);
               status("error");
             }
@@ -61,7 +60,7 @@ class Auth{
               headers: { 'auth-token': window.localStorage.getItem('plumaT') } })
           .then(res=>{
 
-            window.localStorage.setItem('erpT','expired');
+            window.localStorage.setItem('plumaT','expired');
             window.location.replace('/')
               
       })
@@ -81,7 +80,6 @@ class Auth{
    
     var current_time = Date.now() / 1000;
     if(user && Object.keys(user).length>0){
-      console.log('user here :::::>',user)
       if ( user.exp < current_time) 
           value = false;
       else

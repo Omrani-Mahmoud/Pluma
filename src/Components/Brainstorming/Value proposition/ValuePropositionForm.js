@@ -17,6 +17,8 @@ import {getToken} from '../../../Selectors/TokenSelector'
 import CustomSnackbar from "../../../Components/SnackBars/CustomSnackBar";
 
 
+
+// reducer init value
 const initValue = {
     prod_name:'',
     desc:'',
@@ -26,6 +28,8 @@ const initValue = {
     keywords:[]
 }
 
+
+// model reducer
 const reducer =(state,action)=>{
     switch (action.type) {
         case 'prod_name':
@@ -47,7 +51,10 @@ const reducer =(state,action)=>{
 }
 
 function ValuePropositionForm({languages}) {
+    //loading state
     const [loading, setloading] = React.useState(false)
+
+    //form Value
     const [formValue, dispatch] = React.useReducer(reducer, initValue);
     const [checked, setchecked] = React.useState(false);
     const [results,setResults] = useRecoilState(resultsState);

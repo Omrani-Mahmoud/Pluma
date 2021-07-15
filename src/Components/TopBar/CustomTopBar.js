@@ -108,7 +108,7 @@ function CustomTopBar(props) {
         height:'85px',
           boxShadow:'0px 3px 5px 0px rgba(234 ,235, 239, .7)',
       //   borderBottom:'1px solid #C4C4C4'
-      zIndex:9999
+      // zIndex:99
     
       },
     },

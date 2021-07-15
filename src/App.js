@@ -25,11 +25,11 @@ function App() {
   return (
 
     <>
-      {
-        isMobile ?
+<div className='mobileC'>
           <Mobile />
-          :
-          (
+          </div>
+
+            <div className='mainC'>
     <BrowserRouter>
       <RecoilRoot>
           <Router  history={history}>
@@ -45,8 +45,8 @@ function App() {
           </Router>
       </RecoilRoot>
     </BrowserRouter>
-          )
-}
+    </div>
+
           </>
   );
 }

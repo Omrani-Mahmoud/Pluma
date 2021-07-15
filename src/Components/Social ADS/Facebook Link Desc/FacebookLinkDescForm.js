@@ -131,9 +131,9 @@ function FacebookLinkDescForm({languages}) {
                     <span className='boldText' style={{textTransform:'uppercase',fontSize:'30px'}}>Facebook Link Description</span>
                 </section>
                <div style={{background:'white',marginTop:'30px',padding:'20px',display:'flex',flexDirection:'column',justifyContent:'center',borderRadius:'18px'}}>
-              <CustomInput v={formValue.prod_name} name='product name' placeholder='product name' action={dispatch} type='prod_name' />
+              <CustomInput length={20} v={formValue.prod_name} name='product name' placeholder='product name' action={dispatch} type='prod_name' />
 
-              <CustomTextArea v={formValue.desc} action={dispatch} type='desc'/>
+              <CustomTextArea length={70} v={formValue.desc} action={dispatch} type='desc'/>
               <VoiceToneList />
 
                <FormControlLabel
@@ -148,11 +148,11 @@ function FacebookLinkDescForm({languages}) {
                 {
                     checked &&
                     <div>
-                        <CustomInput v={formValue.target} name='target audience' placeholder='Ex. digital marketers in Canada' margin={30}  action={dispatch} type='target' />
+                        <CustomInput length={20} v={formValue.target} name='target audience' placeholder='Ex. digital marketers in Canada' margin={30}  action={dispatch} type='target' />
 
-                        <CustomInput v={formValue.occasion} name='occasion' placeholder="ex. valentine's Day" margin={30}  action={dispatch} type='occasion'/>
+                        <CustomInput length={20} v={formValue.occasion} name='occasion' placeholder="ex. valentine's Day" margin={30}  action={dispatch} type='occasion'/>
 
-                        <CustomInput v={formValue.promotion} name='promotion' placeholder='ex. 20% off'  margin={30}  action={dispatch} type='promotion'/>
+                        <CustomInput length={5} v={formValue.promotion} name='promotion' placeholder='ex. 20% off'  margin={30}  action={dispatch} type='promotion'/>
 
                     </div>    
                 }

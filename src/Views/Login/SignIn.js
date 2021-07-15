@@ -185,7 +185,7 @@ export default function SignIn(props) {
 
   const [forgotPass, setforgotPass] = React.useState(false);
 
-  const [error_msg, seterror_msg] = React.useState('hahaha')
+  const [error_msg, seterror_msg] = React.useState("Can't reach the server!")
   const AuthHandler = () => {
     setloading(true);
     auth.login(userInfo,setloading,setStatus,setOpenLogin,seterror_msg,(token)=>{
@@ -499,7 +499,7 @@ export default function SignIn(props) {
               )}
 
               <Box mt={5}>
-                <Copyright />
+                {/* <Copyright /> */}
               </Box>
             </form>
             </Grid>

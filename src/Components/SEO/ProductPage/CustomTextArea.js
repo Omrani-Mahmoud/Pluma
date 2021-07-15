@@ -1,7 +1,7 @@
 import { Grid, TextareaAutosize } from '@material-ui/core'
 import React from 'react'
 
-function CustomTextArea({action,type,v}) {
+function CustomTextArea({action,type,v,length=200}) {
     const inputs = JSON.parse(window.localStorage.getItem('oldInputs'))
 
     return (

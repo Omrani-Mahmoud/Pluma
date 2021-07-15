@@ -10,6 +10,7 @@ import axios from 'axios';
 import {uri} from "../../Url_base";
 import jwt from "jsonwebtoken";
 import { userState,tokenState,workSpaceState,favoritesState } from "../../Atoms/Atoms";
+
 import {
     RecoilRoot,
     atom,
@@ -17,6 +18,7 @@ import {
     useRecoilState,
     useRecoilValue,
   } from "recoil";
+
 import {motion} from 'framer-motion'
 import CustomSnackbar from '../SnackBars/CustomSnackBar';
 import { getToken } from '../../Selectors/TokenSelector';
@@ -127,12 +129,7 @@ function SingleFav({index,content,id}) {
             <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
                 <div>
                     {
-                        edit ?
-                        <div> 
-                        <input onChange={(e)=>_handleChange(e)} defaultValue={inputValue} style={{border:'none', outline:'none',background:'#f2f4ff',borderRadius:'5px',padding:'5px'}} />
-                        <SaveIcon onClick={()=>{setedit(false);console.log(inputValue)}}  style={styleSave} onMouseEnter={()=>sethoverIcons({...hoverIcons,edit:true})} onMouseLeave={()=>sethoverIcons({...hoverIcons,edit:false})}/>
-                        </div>
-                        :
+                        
                         <div>
                         <span><b style={{fontSize:'18px',marginLeft:'10px',fontWeight:'bold'}}>{`Favorite ${index+1}`}</b></span>
                         <EditIcon onClick={()=>setedit(true)}  style={styleEdit} onMouseEnter={()=>sethoverIcons({...hoverIcons,edit:true})} onMouseLeave={()=>sethoverIcons({...hoverIcons,edit:false})}/>

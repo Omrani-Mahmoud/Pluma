@@ -12,6 +12,7 @@ import {
   import { makeStyles } from "@material-ui/core/styles";
   import CustomSnackbar from '../SnackBars/CustomSnackBar';
   import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+  import CircularProgress from '@material-ui/core/CircularProgress';
 
  
 
@@ -41,12 +42,13 @@ import {
       }
     }
   });
-const AccountInfoSection = forwardRef(({dispatcher,form},ref)=> {
+const AccountInfoSection = forwardRef(({dispatcher,form,update__},ref)=> {
     const classes = useStyles();
     const [user, setUser] = useRecoilState(userState);
     const [isFocused, setIsFocused] = React.useState({one:false,two:false});
     const [open, setOpen] = React.useState(false);
     const [status, setStatus] = React.useState("");
+    const [loading, setloading] = React.useState(false);
 
 
 
@@ -59,7 +61,8 @@ const AccountInfoSection = forwardRef(({dispatcher,form},ref)=> {
    
 
     React.useEffect(() => {
-      setOpen(true)
+      setOpen(true);
+      setloading(false);
     }, [status])
 
     return (
@@ -132,8 +135,14 @@ const AccountInfoSection = forwardRef(({dispatcher,form},ref)=> {
         </MuiThemeProvider>
       </FormControl>
         
-      <Button style={{background:'#EBEDFC',color:'#6A7BFF' ,width:'109px',borderRadius:'10px',marginTop:'33px'}} >Save</Button>
-
+      {
+          loading? 
+          <CircularProgress style={{color:'#6A7BFF',alignSelf:'center',marginTop:'33px'}} size={20} />
+          :
+      <Button onClick={()=>{
+        update__(form,setStatus);
+      }} style={{background:'#EBEDFC',color:'#6A7BFF' ,width:'109px',borderRadius:'20px',marginTop:'33px'}} >Save</Button>
+    }
 
         </Grid>
         </Grid>

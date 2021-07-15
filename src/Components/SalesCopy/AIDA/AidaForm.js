@@ -133,9 +133,9 @@ function AidaForm({languages}) {
                     <span className='boldText' style={{textTransform:'uppercase',fontSize:'30px'}}>AIDA</span>
                 </section>
                <div style={{background:'white',marginTop:'30px',padding:'20px',display:'flex',flexDirection:'column',justifyContent:'center',borderRadius:'18px'}}>
-              <CustomInput v={formValue.prod_name} name='product name' placeholder='product name' action={dispatch} type='prod_name' />
+              <CustomInput length={20} v={formValue.prod_name} name='product name' placeholder='product name' action={dispatch} type='prod_name' />
 
-              <CustomTextArea v={formValue.desc} action={dispatch} type='desc'/>
+              <CustomTextArea length={140} v={formValue.desc} action={dispatch} type='desc'/>
                <FormControlLabel
                     control={<Checkbox checked={checked} onChange={handleChange} name="checkedA" color='default' size="small" />}
                     label="More options"
@@ -150,11 +150,11 @@ function AidaForm({languages}) {
                 {
                     checked &&
                     <div>
-                        <CustomInput name='target audience' placeholder='Ex. digital marketers in Canada' margin={30} v={formValue.target}  action={dispatch} type='target' />
+                        <CustomInput  length={20}name='target audience' placeholder='Ex. digital marketers in Canada' margin={30} v={formValue.target}  action={dispatch} type='target' />
 
-                        <CustomInput name='occasion' placeholder="ex. valentine's Day" margin={30}  action={dispatch} v={formValue.occasion} type='occasion'/>
+                        <CustomInput length={20} name='occasion' placeholder="ex. valentine's Day" margin={30}  action={dispatch} v={formValue.occasion} type='occasion'/>
 
-                        <CustomInput name='promotion' placeholder='ex. 20% off'  margin={30}  action={dispatch} v={formValue.promotion} type='promotion'/>
+                        <CustomInput length={5} name='promotion' placeholder='ex. 20% off'  margin={30}  action={dispatch} v={formValue.promotion} type='promotion'/>
 
                     </div>    
                 }

@@ -19,7 +19,6 @@ export const activeWorkspaceFavorites = selectorFamily({
       console.log('fav here here',favorites)
 
       let current = favorites.filter(elem=>elem.workspace_id==worspaceId);
-      console.log('filtred here',current)
 
         return current
 

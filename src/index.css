@@ -26,6 +26,7 @@ textarea{
 
 .charthere{
   text-align: center;
+
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
@@ -38,3 +39,31 @@ textarea{
 ::-webkit-scrollbar-thumb:window-inactive {
   background: rgb(226, 226, 226); 
 }
+
+
+
+/* PROGRESS HERE*/
+
+
+.MuiLinearProgress-barColorPrimary {
+  background-color: #A3A1FB  !important;
+}
+.MuiLinearProgress-colorPrimary{
+  background-color: #EBEDFC  !important;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+@media screen and (max-width: 600px) {
+  .mainC{
+    display: none;
+  }
+  
+}
+
+@media screen and (min-width: 601px) {
+  .mobileC{
+    display: none;
+  }
+}
+
